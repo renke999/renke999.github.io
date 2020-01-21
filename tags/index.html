@@ -209,10 +209,10 @@
       <div class="post-body">
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-              目前共计 1 个标签
+              目前共计 2 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/renke999.github.io/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 12px; color: #ccc">生活</a>
+              <a href="/renke999.github.io/tags/markdown/" style="font-size: 12px; color: #ccc">markdown</a> <a href="/renke999.github.io/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 30px; color: #111">生活</a>
             </div>
           </div>
         
@@ -282,10 +282,12 @@
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
-      <a href="/">
+
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <a href="/">    
     <img class="site-author-image" itemprop="image" alt="我很欣赏你"
       src="/renke999.github.io/images/avatar.jpg">
+      </a>
   <p class="site-author-name" itemprop="name">我很欣赏你</p>
   <div class="site-description" itemprop="description">Go go go!</div>
 </div>
@@ -294,20 +296,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/renke999.github.io/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/renke999.github.io/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/renke999.github.io/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -329,13 +331,19 @@
 
 
 
-        </a>
+
       </div>
-
-<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tv&skin=sogou" frameborder="0" width="255" height="25" allowtransparency="true"></iframe>
-
-
     </div>
+    
+    <div class="sidebar-inner">
+        <!-- weather -->
+        <script type="text/javascript">
+        WIDGET = {FID: 'XKYzoGxi6P'}
+        </script>
+            <script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111">
+        </script>
+    </div>
+    
   </aside>
   <div id="sidebar-dimmer"></div>
 
@@ -443,7 +451,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     new Valine({
       el: '#valine-comments',
       verify: false,
-      notify: false,
+      notify: true,
       appId: 'OQqgSbJIYga73FaHFPLMJngp-gzGzoHsz',
       appKey: 'UpH8H3RynfSOI0lMmpBlVEeJ',
       placeholder: "留个评论吧☺",
