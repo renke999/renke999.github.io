@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>插件</title>
+    <url>/renke999.github.io/2020/01/25/%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<p>插件配置</p>
+<p>插件配置</p>
+<p>Hexo用户群体较多，插件也很丰富，大大提高了使用体验。</p>
+<a id="more"></a>
+<h2 id="博文加密"><a href="#博文加密" class="headerlink" title="博文加密"></a>博文加密</h2><h2 id="本地搜索"><a href="#本地搜索" class="headerlink" title="本地搜索"></a>本地搜索</h2><p>在主题配置文件中搜索<code>local_search</code>并开启，其余操作在此插件的文档中给出使用方法：<a href="https://github.com/theme-next/hexo-generator-searchdb，完成后会自动在侧边栏添加搜索一栏。" target="_blank" rel="noopener">https://github.com/theme-next/hexo-generator-searchdb，完成后会自动在侧边栏添加搜索一栏。</a></p>
+<h2 id="静态资源压缩"><a href="#静态资源压缩" class="headerlink" title="静态资源压缩"></a>静态资源压缩</h2><h2 id="显示每篇文章字数"><a href="#显示每篇文章字数" class="headerlink" title="显示每篇文章字数"></a>显示每篇文章字数</h2><p>在主题配置文件中搜索<code>symbols_count_time</code>并开启，其余操作在官方文档：<a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">https://github.com/theme-next/hexo-symbols-count-time</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>插件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>tex笔记</title>
     <url>/renke999.github.io/2020/01/22/tex%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<blockquote>
