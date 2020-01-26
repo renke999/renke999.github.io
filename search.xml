@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>插件</title>
-    <url>/renke999.github.io/2020/01/25/%E6%8F%92%E4%BB%B6/</url>
+    <url>/2020/01/25/%E6%8F%92%E4%BB%B6/</url>
     <content><![CDATA[<p>插件配置</p>
 <p>插件配置</p>
 <p>Hexo用户群体较多，插件也很丰富，大大提高了使用体验。</p>
@@ -19,7 +19,7 @@
   </entry>
   <entry>
     <title>tex笔记</title>
-    <url>/renke999.github.io/2020/01/22/tex%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/22/tex%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>latex中文教程-15集从入门到精通包含各种latex操作](<a href="https://www.bilibili.com/video/av16002978?p=6)的个人笔记" target="_blank" rel="noopener">https://www.bilibili.com/video/av16002978?p=6)的个人笔记</a><br>2020/1/15 - 2020/1/17</p>
 <a id="more"></a>
 <h2 id="1-环境安装与配置"><a href="#1-环境安装与配置" class="headerlink" title="1. 环境安装与配置"></a>1. 环境安装与配置</h2><ol>
@@ -687,7 +687,7 @@
   </entry>
   <entry>
     <title>markdown笔记</title>
-    <url>/renke999.github.io/2020/01/20/markdown%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/01/20/markdown%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="TYPORA"><a href="#TYPORA" class="headerlink" title="TYPORA"></a>TYPORA</h1><a id="more"></a>
 <p>[toc]</p>
 <h3 id="学习网站"><a href="#学习网站" class="headerlink" title="学习网站"></a>学习网站</h3><p><a href="https://www.bilibili.com/video/av18508430" target="_blank" rel="noopener">bilibili_typora</a></p>
@@ -811,7 +811,7 @@ f(x) = \frac{1}{\sqrt{2}\pi\sigma}exp{-\frac{(x-\mu)^2}{2\sigma^2}})</script><p>
   </entry>
   <entry>
     <title>test</title>
-    <url>/renke999.github.io/2020/01/01/test/</url>
+    <url>/2020/01/01/test/</url>
     <content><![CDATA[<p>test </p>
 ]]></content>
       <categories>
@@ -823,7 +823,7 @@ f(x) = \frac{1}{\sqrt{2}\pi\sigma}exp{-\frac{(x-\mu)^2}{2\sigma^2}})</script><p>
   </entry>
   <entry>
     <title>新的一年</title>
-    <url>/renke999.github.io/2020/01/01/2020-1-1/</url>
+    <url>/2020/01/01/2020-1-1/</url>
     <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
   <div class="hbe-input-container">
   <input type="password" id="hbePass" placeholder="" />
@@ -832,7 +832,7 @@ f(x) = \frac{1}{\sqrt{2}\pi\sigma}exp{-\frac{(x-\mu)^2}{2\sigma^2}})</script><p>
   </div>
   <script id="hbeData" type="hbeData" data-hmacdigest="8d7cc1041a78c9f03ec9388ed609fecdb5d9868685f589a8a479bd672f84c657">5c3d5c8b0b808c237c20ed87b4b86d30ccd6904ddb237d38b3971cbf5836516b229c46b5ddab2fc3386dacaea0207289</script>
 </div>
-<script src="/renke999.github.io/lib/blog-encrypt.js"></script><link href="/renke999.github.io/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>生活</category>
       </categories>
@@ -842,7 +842,7 @@ f(x) = \frac{1}{\sqrt{2}\pi\sigma}exp{-\frac{(x-\mu)^2}{2\sigma^2}})</script><p>
   </entry>
   <entry>
     <title>Hello hexo</title>
-    <url>/renke999.github.io/2019/12/12/hello-world/</url>
+    <url>/2019/12/12/hello-world/</url>
     <content><![CDATA[<p><a href="https://www.simon96.online/2018/10/12/hexo-tutorial/" target="_blank" rel="noopener">https://www.simon96.online/2018/10/12/hexo-tutorial/</a></p>
 <p><a href="https://www.simon96.online/2018/10/12/hexo-tutorial/" target="_blank" rel="noopener">https://www.simon96.online/2018/10/12/hexo-tutorial/</a></p>
 <p><a href="https://www.simon96.online/2018/10/12/hexo-tutorial/" target="_blank" rel="noopener">https://www.simon96.online/2018/10/12/hexo-tutorial/</a></p>
