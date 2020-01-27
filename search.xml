@@ -26,8 +26,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>备案</tag>
         <tag>域名</tag>
+        <tag>备案</tag>
       </tags>
   </entry>
   <entry>
@@ -36,7 +36,7 @@
     <content><![CDATA[<p>由于国内访问github较慢，所以部署到coding上，访问速度大幅加快。</p>
 <a id="more"></a>
 <blockquote>
-<p>参考<a href="https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改" target="_blank" rel="noopener">https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改</a></p>
+<p>参考<a href="https://blog.csdn.net/qq_36759224/article/details/100879609" target="_blank" rel="noopener">https://blog.csdn.net/qq_36759224/article/details/100879609</a><br>由于coding进行了更新，所以需要作出一些修改</p>
 </blockquote>
 <h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>进入 <a href="https://coding.net/" target="_blank" rel="noopener">Coding 官网</a>，注册个人版帐号。创建一个新的<code>Devops</code>的项目（不一定要和用户名一致，现在静态网站的访问地址不是和项目名一样的）</p>
 <h2 id="添加公钥"><a href="#添加公钥" class="headerlink" title="添加公钥"></a>添加公钥</h2><p>在个人设置中添加SSH公钥，同github的公钥，位于<code>~/.ssh/id_rsa.pub</code> ，使用命令<code>ssh -T git@e.coding.net</code>查看是否添加成功，可在帮助文档中查询方法<code>https://help.coding.net/</code>。添加成功后进入创建的项目，在<code>构建与部署</code>中开启静态网站（需要实名认证）。</p>
@@ -54,8 +54,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>域名</tag>
         <tag>https</tag>
+        <tag>域名</tag>
       </tags>
   </entry>
   <entry>
@@ -99,6 +99,12 @@
 <h2 id="本地搜索"><a href="#本地搜索" class="headerlink" title="本地搜索"></a>本地搜索</h2><p>使用<a href="https://github.com/theme-next/hexo-generator-searchdb" target="_blank" rel="noopener">hexo-generator-searchdb</a>插件，配置完成后会自动在侧边栏添加搜索一栏。</p>
 <h2 id="静态资源压缩"><a href="#静态资源压缩" class="headerlink" title="静态资源压缩"></a>静态资源压缩</h2><p>使用<a href="https://github.com/rozbo/hexo-neat" target="_blank" rel="noopener">hexo-neat</a>插件。</p>
 <h2 id="显示每篇文章字数"><a href="#显示每篇文章字数" class="headerlink" title="显示每篇文章字数"></a>显示每篇文章字数</h2><p>在主题配置文件中搜索<code>symbols_count_time</code>并开启，官方文档<a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a>。</p>
+<h2 id="网页预加载"><a href="#网页预加载" class="headerlink" title="网页预加载"></a>网页预加载</h2><blockquote>
+<p>参考链接：<a href="https://www.liaofuzhan.com/posts/1599400735.html" target="_blank" rel="noopener">https://www.liaofuzhan.com/posts/1599400735.html</a></p>
+</blockquote>
+<p>使用<a href="https://github.com/theme-next/theme-next-pjax" target="_blank" rel="noopener">pjax</a>，在访问者单击链接之前，他们会将鼠标悬停在该链接上。在这两个事件之间，通常会经过200毫秒至300毫秒。pjax利用这段时间来预加载页面。</p>
+<h2 id="内容缓存"><a href="#内容缓存" class="headerlink" title="内容缓存"></a>内容缓存</h2><p>使用 <a href="https://github.com/zoumiaojiang/hexo-service-worker" target="_blank" rel="noopener">hexo-service-worker</a>插件，能够默认的把站点中 public 内的所有静态资源包括 html 文件缓存起来，达到离线可访问的效果。</p>
+<h2 id="源码备份"><a href="#源码备份" class="headerlink" title="源码备份"></a>源码备份</h2><p>使用插件<a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="noopener">hexo-git-backup</a>。</p>
 ]]></content>
       <categories>
         <category>hexo</category>

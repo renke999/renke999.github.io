@@ -1315,10 +1315,13 @@ pre .javascript .function {
   margin-bottom: 10px;
   margin-right: 10px;
   vertical-align: middle;
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #377d25;
+  background: #089114;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2754,7 +2757,6 @@ ul.breadcrumb li + li:last-child {
 }
 .links-of-author-item {
   margin: 5px 0 0;
-  width: 50%;
 }
 .links-of-author-item a,
 .links-of-author-item span.exturl {
@@ -3037,6 +3039,10 @@ body {
 .site-author-image {
   max-width: 150px;
   width: 135px;
+}
+.links-of-author-item a,
+.links-of-author-item span.exturl {
+  padding: 0 10px;
 }
 /*
 **

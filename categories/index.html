@@ -339,16 +339,20 @@
 </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/renke999" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;renke999" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:446917139@qq.com" title="E-Mail → mailto:446917139@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ → tencent:&#x2F;&#x2F;Message&#x2F;?Uin&#x3D;446917139&amp;websiteName&#x3D;www.oicqzone.com&amp;Menu&#x3D;yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i></a>
       </span>
       <span class="links-of-author-item">
-        <a href="/images/wechat.png" title="Wechat → &#x2F;images&#x2F;wechat.png"><i class="fa fa-fw fa-weixin"></i>Wechat</a>
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin"></i></a>
       </span>
   </div>
 
@@ -389,7 +393,7 @@
 <!---->
 <!--       <span class="post-meta-item-text">站点总字数：</span>-->
 <!---->
-    <span title="站点总字数">19k</span>
+    <span title="站点总字数">20k</span>
 
 <!-- 这部分是底栏总阅读时间 -->
     <span class="post-meta-divider">|</span>
@@ -438,7 +442,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -471,6 +475,7 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -483,6 +488,63 @@
 
 
 <script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
 
 
 
@@ -507,6 +569,7 @@
 
 
 
+    <div id="pjax">
   
 
   
@@ -542,11 +605,12 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 });
 </script>
 
+    </div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":160,"height":360},"mobile":{"show":false},"react":{"opacity":0.7},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
 
-<!-- 页面点击小红心 -->
-<script  type="text/javascript" src="https://cdn.jsdelivr.net/gh/renke999/cdn@1.0/js/cursor/explosion.js"></script>
+<!--点击爱心-->
+<script type="text/javascript" src="/js/clicklove.js"></script>
 
 <!--下雪效果-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.6/js/snow3.js"></script>
