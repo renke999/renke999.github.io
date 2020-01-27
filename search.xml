@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo部署到coding并开启https</title>
+    <title>域名与备案</title>
     <url>/2020/01/27/hexo%E5%9F%9F%E5%90%8D%E4%B8%8E%E5%A4%87%E6%A1%88/</url>
     <content><![CDATA[<p>博客原域名是github上的，使用自己的域名可以更简洁好记有意义并且顺便捣鼓一下，域名备案后可以使用cdn等多种云服务。</p>
 <a id="more"></a>
@@ -26,7 +26,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>备案, 域名</tag>
+        <tag>备案</tag>
+        <tag>域名</tag>
       </tags>
   </entry>
   <entry>
@@ -53,34 +54,40 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>https, 域名</tag>
+        <tag>域名</tag>
+        <tag>https</tag>
       </tags>
   </entry>
   <entry>
-    <title>部署到coding并开启https</title>
-    <url>/2020/01/27/%E9%83%A8%E7%BD%B2%E5%88%B0coding%E5%B9%B6%E5%BC%80%E5%90%AFhttps/</url>
-    <content><![CDATA[<p>由于国内访问github较慢，所以部署到coding上，访问速度大幅加快。</p>
+    <title>更换字体样式与段落间距</title>
+    <url>/2020/01/25/hexo%E6%9B%B4%E6%94%B9%E5%AD%97%E4%BD%93%E4%B8%8E%E6%AE%B5%E8%90%BD%E5%A4%A7%E5%B0%8F/</url>
+    <content><![CDATA[<p>预定义的字体与段落不是很理想，字体较大段落间隔较大，不美观。</p>
 <a id="more"></a>
 <blockquote>
-<p>参考<a href="https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改" target="_blank" rel="noopener">https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改</a></p>
+<p> 参考链接<a href="https://io-oi.me/tech/noto-serif-sc-added-on-google-fonts/" target="_blank" rel="noopener">https://io-oi.me/tech/noto-serif-sc-added-on-google-fonts/</a></p>
 </blockquote>
-<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>进入 <a href="https://coding.net/" target="_blank" rel="noopener">Coding 官网</a>，注册个人版帐号。创建一个新的<code>Devops</code>的项目（不一定要和用户名一致，现在静态网站的访问地址不是和项目名一样的）</p>
-<h2 id="添加公钥"><a href="#添加公钥" class="headerlink" title="添加公钥"></a>添加公钥</h2><p>在个人设置中添加SSH公钥，同github的公钥，位于<code>~/.ssh/id_rsa.pub</code> ，使用命令<code>ssh -T git@e.coding.net</code>查看是否添加成功，可在帮助文档中查询方法<code>https://help.coding.net/</code>。添加成功后进入创建的项目，在<code>构建与部署</code>中开启静态网站（需要实名认证）。</p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>在站点配置文件下找到<code>deploy</code>，修改如下：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">      <span class="attr">github:</span> <span class="string">git@github.com:renke999/renke999.github.io.git</span></span><br><span class="line">      <span class="attr">coding:</span> <span class="string">git@e.coding.net:renke666/renke666.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-<p>找到<code>url</code>，修改为coding的网站地址</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://qypu1r.coding-pages.com/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>配置完成后即可双线部署</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
-<h2 id="绑定域名并开启https"><a href="#绑定域名并开启https" class="headerlink" title="绑定域名并开启https"></a>绑定域名并开启https</h2><p>域名 DNS 设置中添加一条 <code>CNAME</code> 记录指向 <code>http://qypu1r.coding-pages.com/</code>（博客地址），解析路线选择 <code>默认</code>，将 GitHub 的解析路线改为 <code>境外</code>，这样境外访问就会走 GitHub，境内就会走 Coding。再添加一条<code>A</code>记录，主机记录为<code>@</code>，记录值为对应博客的ip地址（可使用<code>ping http://qypu1r.coding-pages.com/</code>得到ip地址），这样访问不带www的域名时会自动加上www。关于<code>CNAME和A记录</code>，可查看此<a href="https://blog.csdn.net/DD_orz/article/details/100034049" target="_blank" rel="noopener">博文</a>。</p>
-<p>若之前在github pages上绑定了自定义域名并开启了https，直接绑定域名并申请证书会申请失败。</p>
-<p>此情况先去阿里云域名控制台将与github相关的解析暂停掉，再去github对应博客的仓库强制取消掉https并取消自定义域名，再去coding上申请证书即可。然后再去github将原有域名和https重新开启。</p>
+<h3 id="修改字体"><a href="#修改字体" class="headerlink" title="修改字体"></a>修改字体</h3><p>原样式字体较大，字体不好看且段落间距较大，文章整体阅读体验很差，故对其进行调整。新采用字体为思源宋体，是有衬线字体，阅读体验吊打黑体，同时更换字体源为国内源<a href="https://fonts.loli.net。" target="_blank" rel="noopener">https://fonts.loli.net。</a></p>
+<ol>
+<li><p>修改主题配置文件</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">EB</span> <span class="string">Garamond</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for site title (.site-title).</span></span><br><span class="line">  <span class="attr">title:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for headlines (&lt;h1&gt; to &lt;h6&gt;).</span></span><br><span class="line">  <span class="attr">headings:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line">    <span class="attr">size:</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for posts (.post-body).</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">SC</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for &lt;code&gt; and code blocks. 代码块字体暂时不做更改</span></span><br><span class="line">  <span class="attr">codes:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到文件<code>source\css\_variables\base.styl</code>（存放各种预定义的基础变量的文件）并修改修改字体族，再修改字体大小：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// Font families.</span><br><span class="line">$font-family-chinese      = "Noto Serif SC", "Microsoft YaHei";</span><br><span class="line"></span><br><span class="line">$font-size-large          = 1.125em - 0.15em;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改文章字体颜色，采用更高级的黑色，在<code>main.styl</code>中追加：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> &#123;  </span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="修改行高"><a href="#修改行高" class="headerlink" title="修改行高"></a>修改行高</h3><p>在<code>base.styl</code>中修改（源文件位于<code>source\css\_common\scaffolding\base.styl</code>）：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">// Global line height</span><br><span class="line">$line-height-base         = 1.85;</span><br><span class="line">$line-height-code-block   = 1.5; // Can't be less than 1.3;</span><br></pre></td></tr></table></figure>
+<h3 id="修改段落间距"><a href="#修改段落间距" class="headerlink" title="修改段落间距"></a>修改段落间距</h3><p>在<code>main.styl</code>中追加：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">10px</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>https, 域名</tag>
+        <tag>字体</tag>
       </tags>
   </entry>
   <entry>
