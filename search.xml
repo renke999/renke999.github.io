@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo部署到coding并开启https</title>
+    <url>/2020/01/27/hexo%E5%9F%9F%E5%90%8D%E4%B8%8E%E5%A4%87%E6%A1%88/</url>
+    <content><![CDATA[<p>博客原域名是github上的，使用自己的域名可以更简洁好记有意义并且顺便捣鼓一下，域名备案后可以使用cdn等多种云服务。</p>
+<a id="more"></a>
+<blockquote>
+<p>参考链接：<a href="https://blog.csdn.net/qq_36759224/article/details/91479964" target="_blank" rel="noopener">https://blog.csdn.net/qq_36759224/article/details/91479964</a></p>
+</blockquote>
+<h2 id="域名注册"><a href="#域名注册" class="headerlink" title="域名注册"></a>域名注册</h2><p>在<a href="https://wanwang.aliyun.com/domain/searchresul" target="_blank" rel="noopener">阿里云</a>进行域名注册，<code>cn, com</code>域名必须备案，其他部分域名可不用备案</p>
+<h2 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h2><h3 id="ICP备案"><a href="#ICP备案" class="headerlink" title="ICP备案"></a>ICP备案</h3><p>具体步骤按参考链接即可</p>
+<p>Tips:</p>
+<ul>
+<li><p>在阿里云进行备案，没有购买产品的话在淘宝购买一个阿里云ECS服务号即可。</p>
+</li>
+<li><p>网站名称若是个人博客要采用<code>XXX的博客</code>的形式（XXX为人名）。</p>
+</li>
+<li><p>阿里云电话询问时问到了姓名，生日，网站开办类型以及开办后的用途。</p>
+</li>
+</ul>
+<h3 id="公安备案"><a href="#公安备案" class="headerlink" title="公安备案"></a>公安备案</h3><p>按参考链接操作即可</p>
+<h2 id="添加备案信息到网站底部"><a href="#添加备案信息到网站底部" class="headerlink" title="添加备案信息到网站底部"></a>添加备案信息到网站底部</h2><p>主题配置文件搜索<code>beian</code>，填写相关信息，或者自行修改<code>foot.swig</code>文件并添加相关内容。</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>备案, 域名</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo部署到coding并开启https</title>
+    <url>/2020/01/27/hexo%E9%83%A8%E7%BD%B2%E5%88%B0coding%E5%B9%B6%E5%BC%80%E5%90%AFhttps/</url>
+    <content><![CDATA[<p>由于国内访问github较慢，所以部署到coding上，访问速度大幅加快。</p>
+<a id="more"></a>
+<blockquote>
+<p>参考<a href="https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改" target="_blank" rel="noopener">https://blog.csdn.net/qq_36759224/article/details/100879609，由于coding进行了更新，所以需要作出一些修改</a></p>
+</blockquote>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>进入 <a href="https://coding.net/" target="_blank" rel="noopener">Coding 官网</a>，注册个人版帐号。创建一个新的<code>Devops</code>的项目（不一定要和用户名一致，现在静态网站的访问地址不是和项目名一样的）</p>
+<h2 id="添加公钥"><a href="#添加公钥" class="headerlink" title="添加公钥"></a>添加公钥</h2><p>在个人设置中添加SSH公钥，同github的公钥，位于<code>~/.ssh/id_rsa.pub</code> ，使用命令<code>ssh -T git@e.coding.net</code>查看是否添加成功，可在帮助文档中查询方法<code>https://help.coding.net/</code>。添加成功后进入创建的项目，在<code>构建与部署</code>中开启静态网站（需要实名认证）。</p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>在站点配置文件下找到<code>deploy</code>，修改如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">      <span class="attr">github:</span> <span class="string">git@github.com:renke999/renke999.github.io.git</span></span><br><span class="line">      <span class="attr">coding:</span> <span class="string">git@e.coding.net:renke666/renke666.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>找到<code>url</code>，修改为coding的网站地址</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://qypu1r.coding-pages.com/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>配置完成后即可双线部署</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<h2 id="绑定域名并开启https"><a href="#绑定域名并开启https" class="headerlink" title="绑定域名并开启https"></a>绑定域名并开启https</h2><p>域名 DNS 设置中添加一条 <code>CNAME</code> 记录指向 <code>http://qypu1r.coding-pages.com/</code>（博客地址），解析路线选择 <code>默认</code>，将 GitHub 的解析路线改为 <code>境外</code>，这样境外访问就会走 GitHub，境内就会走 Coding。再添加一条<code>A</code>记录，主机记录为<code>@</code>，记录值为对应博客的ip地址（可使用<code>ping http://qypu1r.coding-pages.com/</code>得到ip地址），这样访问不带www的域名时会自动加上www。关于<code>CNAME和A记录</code>，可查看此<a href="https://blog.csdn.net/DD_orz/article/details/100034049" target="_blank" rel="noopener">博文</a>。</p>
+<p>若之前在github pages上绑定了自定义域名并开启了https，直接绑定域名并申请证书会申请失败。</p>
+<p>此情况先去阿里云域名控制台将与github相关的解析暂停掉，再去github对应博客的仓库强制取消掉https并取消自定义域名，再去coding上申请证书即可。然后再去github将原有域名和https重新开启。</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>https, 域名</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>部署到coding并开启https</title>
     <url>/2020/01/27/%E9%83%A8%E7%BD%B2%E5%88%B0coding%E5%B9%B6%E5%BC%80%E5%90%AFhttps/</url>
     <content><![CDATA[<p>由于国内访问github较慢，所以部署到coding上，访问速度大幅加快。</p>
@@ -24,18 +80,18 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>https，域名</tag>
+        <tag>https, 域名</tag>
       </tags>
   </entry>
   <entry>
-    <title>插件</title>
-    <url>/2020/01/25/%E6%8F%92%E4%BB%B6/</url>
-    <content><![CDATA[<p>插件配置</p>
-<p>插件配置</p>
-<p>Hexo用户群体较多，插件也很丰富，大大提高了使用体验。</p>
+    <title>hexo插件</title>
+    <url>/2020/01/25/hexo%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<p>Hexo用户群体较多，插件也很丰富，大大提高了使用体验。由于大部分前段知识还不会，所以利用插件去完成。</p>
 <a id="more"></a>
-<h2 id="博文加密"><a href="#博文加密" class="headerlink" title="博文加密"></a>博文加密</h2><h2 id="本地搜索"><a href="#本地搜索" class="headerlink" title="本地搜索"></a>本地搜索</h2><p>在主题配置文件中搜索<code>local_search</code>并开启，其余操作在此插件的文档中给出使用方法：<a href="https://github.com/theme-next/hexo-generator-searchdb，完成后会自动在侧边栏添加搜索一栏。" target="_blank" rel="noopener">https://github.com/theme-next/hexo-generator-searchdb，完成后会自动在侧边栏添加搜索一栏。</a></p>
-<h2 id="静态资源压缩"><a href="#静态资源压缩" class="headerlink" title="静态资源压缩"></a>静态资源压缩</h2><h2 id="显示每篇文章字数"><a href="#显示每篇文章字数" class="headerlink" title="显示每篇文章字数"></a>显示每篇文章字数</h2><p>在主题配置文件中搜索<code>symbols_count_time</code>并开启，其余操作在官方文档：<a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">https://github.com/theme-next/hexo-symbols-count-time</a></p>
+<h2 id="博文加密"><a href="#博文加密" class="headerlink" title="博文加密"></a>博文加密</h2><p>使用<a href="https://github.com/MikeCoder/hexo-blog-encrypt" target="_blank" rel="noopener">hexo-blog-encrypt</a>插件。</p>
+<h2 id="本地搜索"><a href="#本地搜索" class="headerlink" title="本地搜索"></a>本地搜索</h2><p>使用<a href="https://github.com/theme-next/hexo-generator-searchdb" target="_blank" rel="noopener">hexo-generator-searchdb</a>插件，配置完成后会自动在侧边栏添加搜索一栏。</p>
+<h2 id="静态资源压缩"><a href="#静态资源压缩" class="headerlink" title="静态资源压缩"></a>静态资源压缩</h2><p>使用<a href="https://github.com/rozbo/hexo-neat" target="_blank" rel="noopener">hexo-neat</a>插件。</p>
+<h2 id="显示每篇文章字数"><a href="#显示每篇文章字数" class="headerlink" title="显示每篇文章字数"></a>显示每篇文章字数</h2><p>在主题配置文件中搜索<code>symbols_count_time</code>并开启，官方文档<a href="https://github.com/theme-next/hexo-symbols-count-time" target="_blank" rel="noopener">hexo-symbols-count-time</a>。</p>
 ]]></content>
       <categories>
         <category>hexo</category>
