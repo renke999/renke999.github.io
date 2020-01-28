@@ -238,6 +238,135 @@
               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tex/">tex</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-count">2</span></li></ul>
             </div>
           </div>
+          <style>
+
+  .love {
+      width: 500px;
+      height: 650px;
+      position: relative;
+      margin: 60px auto;
+  }
+
+  .love a {
+      position: absolute;
+      left: 0;
+      //color: goldenrod;
+      //color: #e804048f;
+      font-size: 20px;
+      font-family: sans-serif;
+      text-shadow: 0 0 1em white;
+      animation:
+          x-move 15s ease-in-out infinite alternate,
+          y-move 30s linear infinite;
+      animation-delay: calc(45s / var(--particles) * var(--n) * -1);
+      user-select: auto; // none
+  }
+
+  .love a:first-child {
+      color: orangered;
+      font-size: 3em;
+      text-shadow:
+          0 0 0.1em black,
+          0 0 1em white;
+      z-index: 1;
+  }
+
+  @keyframes x-move {
+      to {
+          left: 450px;
+      }
+  }
+
+  @keyframes y-move {
+      0% { transform: translateY(180px); }
+      10% { transform: translateY(45px); }
+      15% { transform: translateY(5px); }
+      18% { transform: translateY(0); }
+      20% { transform: translateY(5px); }
+      22% { transform: translateY(35px); }
+      24% { transform: translateY(65px); }
+      25% { transform: translateY(110px); }
+      26% { transform: translateY(65px); }
+      28% { transform: translateY(35px); }
+      30% { transform: translateY(5px); }
+      32% { transform: translateY(0); }
+      35% { transform: translateY(5px); }
+      40% { transform: translateY(45px); }
+      50% { transform: translateY(180px); }
+      71% { transform: translateY(430px); }
+      72.5% { transform: translateY(440px); }
+      75% { transform: translateY(450px); }
+      77.5% { transform: translateY(440px); }
+      79% { transform: translateY(430px); }
+      100% { transform: translateY(180px); }
+  }
+
+  /* 移动端样式 */
+  @media (max-width: 767px) {
+    .love{
+        width: 360px;
+        height: 450px;
+        margin: 30px auto;
+    }
+    @keyframes x-move {
+        to {
+            left: 285px;
+        }
+    }
+  }
+
+</style>
+
+<div class="love"></div>
+
+
+<script type="text/javascript">
+     var categoryall = document.getElementsByClassName('category-all');
+     var categorires = categoryall[0].getElementsByTagName('a');
+     var words = ['❤️'];
+     //隐藏category-all这个div
+     categories[0].setAttribute("hidden", "hidden");
+     
+     for(var i = 0 ; i < categories.length ; i ++){
+        words.push(categories[i]);    //  此处不是放入.innerHTML，因为要用到链接
+        words.push('♠');
+        //words.push('💕');
+     }
+
+     var dom = {
+         love: document.querySelector('.love')
+     }
+
+     dom.love.style.setProperty('--particles', words.length)
+
+    // =>为匿名函数，forEach应用于数组  https://www.runoob.com/jsref/jsref-foreach.html
+     words.forEach((word, i) => {
+        //  创建一个元素
+         let atag = document.createElement('a');
+         atag.style.setProperty('--n', i + 1);
+         atag.style.setProperty('text-decoration', 'none');
+         atag.style.setProperty('border-bottom', 'none');
+        
+        //  设置随机颜色属性
+         var r=Math.floor(Math.random()*75+130);
+         var g=Math.floor(Math.random()*75+100);
+         var b=Math.floor(Math.random()*75+80);
+         atag.style.setProperty("color", "rgb("+r+","+g+","+b+")");
+
+         //  设置文字和链接
+         if(word.href == undefined){
+            atag.setAttribute("href", "#");
+            atag.innerText = word;
+         }
+         else{
+            atag.innerText = word.innerText;   
+            atag.setAttribute("href", word.href);
+         }
+
+         dom.love.appendChild(atag);
+     })
+</script>
+          
         
       </div>
       
@@ -304,9 +433,10 @@
       </div>
       <!--/noindex-->
 
+        
       <div class="site-overview-wrap sidebar-panel">
-
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <!--作者头像姓名签名-->
+<div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <a href="/">    
     <img class="site-author-image" itemprop="image" alt="我很欣赏你"
       src="/images/avatar.jpg">
@@ -316,6 +446,7 @@
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
+    <!--日志-->
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
@@ -323,12 +454,16 @@
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+    
+    <!--分类-->
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
+
+    <!--标签-->
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
@@ -337,29 +472,36 @@
       </div>
   </nav>
 </div>
+
+<!--图标栏-->
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i></a>
+        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin"></i></a>
+        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin fa-lg"></i></a>
       </span>
   </div>
 
 
 
-
       </div>
+
+      <!--侧边栏返回顶部标识-->
     </div>
     
   </aside>
@@ -371,7 +513,7 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        
+        <!--备案信息-->
   <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备20005221号-1 </a>
   </div>
 
@@ -385,7 +527,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">我很欣赏你</span>
 
-<!-- 这部分是底栏总字长 -->
+<!-- 底栏总字长 -->
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
@@ -395,7 +537,7 @@
 <!---->
     <span title="站点总字数">20k</span>
 
-<!-- 这部分是底栏总阅读时间 -->
+<!-- 底栏总阅读时间 -->
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -610,7 +752,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 </html>
 
 <!--点击爱心-->
-<script type="text/javascript" src="/js/cursor/explosion.js"></script>
+<script type="text/javascript" src="/js/clicklove.js"></script>
 
 <!--下雪效果-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.6/js/snow3.js"></script>

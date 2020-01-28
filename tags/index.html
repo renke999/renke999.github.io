@@ -230,32 +230,55 @@
       
       
       <div class="post-body">
-          <div class="tag-cloud">
-            
+          
+          <div class="tag-cloud">        
             <!--目前共计xxx个标签-->  
-            <div class="tag-cloud-title">
+       <!--     <div class="tag-cloud-title">
               目前共计 8 个标签
-            </div>
-            
+            </div>    -->
+                        
             <!--标签样式-->
             <div class="tag-cloud-tags">
-                <script type="text/javascript">
-                     var alltags = document.getElementsByClassName('tag-cloud-tags');
-                     var tags = alltags[0].getElementsByTagName('a');
-                     for (var i = tags.length - 1; i >= 0; i--) {
-                       var r=Math.floor(Math.random()*75+130);
-                       var g=Math.floor(Math.random()*75+100);
-                       var b=Math.floor(Math.random()*75+80);
-                       tags[i].style.background = "rgb("+r+","+g+","+b+")";
-                     }
-                </script>
-
-              <a href="/tags/https/" style="font-size: 12px; color: #a166ab">https</a> <a href="/tags/markdown/" style="font-size: 12px; color: #a166ab">markdown</a> <a href="/tags/tex/" style="font-size: 12px; color: #a166ab">tex</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 30px; color: #ef4e7b">域名</a> <a href="/tags/%E5%A4%87%E6%A1%88/" style="font-size: 12px; color: #a166ab">备案</a> <a href="/tags/%E5%AD%97%E4%BD%93/" style="font-size: 12px; color: #a166ab">字体</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 12px; color: #a166ab">插件</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 30px; color: #ef4e7b">生活</a>                
-            </div>
-            
+              <a href="/tags/https/" style="font-size: 15px; color: #fff">https</a> <a href="/tags/markdown/" style="font-size: 15px; color: #fff">markdown</a> <a href="/tags/tex/" style="font-size: 15px; color: #fff">tex</a> <a href="/tags/%E5%9F%9F%E5%90%8D/" style="font-size: 25px; color: #fff">域名</a> <a href="/tags/%E5%A4%87%E6%A1%88/" style="font-size: 15px; color: #fff">备案</a> <a href="/tags/%E5%AD%97%E4%BD%93/" style="font-size: 15px; color: #fff">字体</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 15px; color: #fff">插件</a> <a href="/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 25px; color: #fff">生活</a>                
+            </div>         
           </div>
+         <!--自定义彩色标签-->
+        <script type="text/javascript">
+     var alltags = document.getElementsByClassName('tag-cloud-tags');
+     var tags = alltags[0].getElementsByTagName('a');
+     for (var i = tags.length - 1; i >= 0; i--) {
+       var r=Math.floor(Math.random()*75+130);
+       var g=Math.floor(Math.random()*75+100);
+       var b=Math.floor(Math.random()*75+80);
+       tags[i].style.background = "rgb("+r+","+g+","+b+")";
+     }
+</script>
 
-        
+<style>
+  .tag-cloud-tags{
+    font-family: sans-serif;
+    text-align: center;
+    counter-reset: tags;
+  }
+  .tag-cloud-tags a{
+    font-family: sans-serif;
+    border-radius: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 8px 15px 0px 0px;
+  }
+  .tag-cloud-tags a:before{
+    content: "🔖";
+  }
+
+  .tag-cloud-tags a:hover{
+     box-shadow: 0px 5px 15px 0px rgba(0,0,0,.4);
+     transform: scale(1.15);
+     /*box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);*/
+     transition-duration: 0.15s;
+  }
+</style>
+
         
       </div>
       
@@ -322,9 +345,10 @@
       </div>
       <!--/noindex-->
 
+        
       <div class="site-overview-wrap sidebar-panel">
-
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <!--作者头像姓名签名-->
+<div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
       <a href="/">    
     <img class="site-author-image" itemprop="image" alt="我很欣赏你"
       src="/images/avatar.jpg">
@@ -334,6 +358,7 @@
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
+    <!--日志-->
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
@@ -341,12 +366,16 @@
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+    
+    <!--分类-->
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
+
+    <!--标签-->
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
@@ -355,29 +384,36 @@
       </div>
   </nav>
 </div>
+
+<!--图标栏-->
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i></a>
+        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq fa-lg"></i></a>
       </span>
       <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
       <!-- 原来还有+ ' → ' + sidebarURL-->
-        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin"></i></a>
+        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin fa-lg"></i></a>
       </span>
   </div>
 
 
 
-
       </div>
+
+      <!--侧边栏返回顶部标识-->
     </div>
     
   </aside>
@@ -389,7 +425,7 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        
+        <!--备案信息-->
   <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备20005221号-1 </a>
   </div>
 
@@ -403,7 +439,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">我很欣赏你</span>
 
-<!-- 这部分是底栏总字长 -->
+<!-- 底栏总字长 -->
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
@@ -413,7 +449,7 @@
 <!---->
     <span title="站点总字数">20k</span>
 
-<!-- 这部分是底栏总阅读时间 -->
+<!-- 底栏总阅读时间 -->
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -628,7 +664,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 </html>
 
 <!--点击爱心-->
-<script type="text/javascript" src="/js/cursor/explosion.js"></script>
+<script type="text/javascript" src="/js/clicklove.js"></script>
 
 <!--下雪效果-->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.6/js/snow3.js"></script>
