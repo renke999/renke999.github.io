@@ -1321,7 +1321,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #30fffb;
+  background: #fff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3036,13 +3036,24 @@ body {
 .links-of-author-item span.exturl {
   padding: 0 10px;
 }
+p {
+  margin: 0 0 15px 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 66px 0 15px;
+}
 /*
 **
   文章内容美化
 ***
  */
 .post-body {
-  color: #333;
+  color: #555;
 }
 code {
   padding: 2px 4px;
@@ -3131,9 +3142,6 @@ hr {
 }
 .category-list a {
   color: #6f42c1;
-}
-p {
-  margin: 0 0 10px 0;
 }
 .headband {
   height: 0px;
