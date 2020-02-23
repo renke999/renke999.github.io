@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>最优化方法</title>
+    <url>/2020/02/23/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>优化问题可以分为无约束优化问题和有约束优化问题。有约束可用拉格朗日乘子法，下面主要针对无约束问题，一般求解目标函数的全局最优解很难，常用迭代法。</p>
+<a id="more"></a>
+<h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><h3 id="批量梯度下降"><a href="#批量梯度下降" class="headerlink" title="批量梯度下降"></a>批量梯度下降</h3><p>一种迭代方法，因为负梯度方向是函数值下降最快的方向，所以每次以负梯度方向更新x的值。</p>
+<p>方向导数：</p>
+<script type="math/tex; mode=display">\begin{align*} D_u(x,y)&=f_x(x,y)\cos\theta+f_y(x,y)\sin\theta \\ &=(f_x(x,y),f_y(x,y)) \begin{pmatrix} \cos\theta \\ \sin\theta \end{pmatrix} \\&= |A||I|\cos\alpha \end{align*}</script><p>$\alpha=0$时方向导数最大，且此时函数值下降最快的方向（函数变化率最大的方向）和A的方向相同，A的方向也就是梯度方向（一个点确定后，梯度方向是固定的）。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223110213.png" alt=""></p>
+<h3 id="随机梯度下降"><a href="#随机梯度下降" class="headerlink" title="随机梯度下降"></a>随机梯度下降</h3><p>Stochastic gradient descent，每次只用一个实例去更新参数，适用于数据量大的情况下，可用于在线学习，但每一次不一定朝着正确的方向下降</p>
+<p>例如若损失函数为平方损失函数，只用一个数据 $(x^{(i)},y^{(i)})$ </p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha[h_\theta(x^{(i)}-y^{(i)})x^{(i)}_j]</script><p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223100103.png" alt=""></p>
+<h3 id="小批量梯度下降"><a href="#小批量梯度下降" class="headerlink" title="小批量梯度下降"></a>小批量梯度下降</h3><p>介于批量梯度下降和随机梯度下降之间，每次计算常数b个数据。</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{1}{b}\sum\limits_{k=1}^{i+b-1}[h_\theta(x^{(k)}-y^{(k)})x^{(k)}_j]</script><h2 id="牛顿法和拟牛顿法"><a href="#牛顿法和拟牛顿法" class="headerlink" title="牛顿法和拟牛顿法"></a>牛顿法和拟牛顿法</h2><h3 id="牛顿法求方程根"><a href="#牛顿法求方程根" class="headerlink" title="牛顿法求方程根"></a>牛顿法求方程根</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNjIxODA1LWZkYmQ1ZGU5ZDRmMTc2ZGIucG5nP2ltYWdlTW9ncjIvYXV0by1vcmllbnQvc3RyaXAlN0NpbWFnZVZpZXcyLzIvdy84NTgvZm9ybWF0L3dlYnA?x-oss-process=image/format,png" alt=""></p>
+<h3 id="牛顿法求解无约束最优化问题"><a href="#牛顿法求解无约束最优化问题" class="headerlink" title="牛顿法求解无约束最优化问题"></a>牛顿法求解无约束最优化问题</h3><p>将f(x)进行二阶泰勒展开。因为有极值的必要条件是极值点处一阶导数为0，当对应的黑塞矩阵为正定矩阵时函数f(x)极值为极小值。牛顿法推导的核心是$\nabla f(x^{(k+1)})=0$</p>
+<p>二阶泰勒：$f(x)=f(x^{(k)})+g_k^T(x-x^{(k)})+\frac{1}{2}(x-x^{(k)})^TH(x^{(k)})(x-x^{(k)})$</p>
+<p>对x求导（标量对向量）：$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$</p>
+<p>令：$\nabla f(x^{(k+1)})=0$</p>
+<p>得：$x^{(k+1)}=x^{(k)}-H_k^{-1}g_k$</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223102403.png" alt=""></p>
+<p><strong>牛顿法不仅考虑当前梯度最大方向，还考虑了走一步后的方向（二阶导数），但牛顿法求逆矩阵慢</strong></p>
+<h3 id="拟牛顿法"><a href="#拟牛顿法" class="headerlink" title="拟牛顿法"></a>拟牛顿法</h3><h4 id="BFGS"><a href="#BFGS" class="headerlink" title="BFGS"></a>BFGS</h4><p>$H_K^{-1}$难求，考虑用一个矩阵对其近似。DFP用矩阵$G_k$近似$H_K^{-1}$，BFGS用矩阵$B_k$近似$H_K$</p>
+<p>由$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$，得$g_{k}=g_{k+1}+H_{k+1}(x^{(k)}-x^{(k+1)})$</p>
+<p>可见<strong>梯度的变换中包含了Hessian矩阵的信息</strong>，在迭代过程中收集了这样的信息即可不用求黑塞矩阵而去近似。</p>
+<p>令$\delta_k= x^{(k+1)}-x^{(k)},y_k=g_{k+1}-g_{k}$，则$H_{k+1}\delta_k=y_k$</p>
+<p>所以$B_{k+1}$需满足上式，也需满足是一个正定对称矩阵。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223103454.png" alt=""></p>
+<p>因为要让$B_k$可以迭代，所以如(B.26)，构造$B_{k+1}=B_{k}+\alpha uu^T+\beta vv^T$（满足对称矩阵）</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/B1CA62D9DEDE87F68C1EA0AFDE3049C2.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223104709.png" alt=""></p>
+<p>这里$B_0$可选为对角线全为1的矩阵</p>
+<p>由于拟合的是$B_k=H_k$，但实际上$B_k^{-1}$有公式可求，且$B_{(k+1)}^{-1}$与$B_k^{-1}$有递推关系式。</p>
+<h4 id="DFP"><a href="#DFP" class="headerlink" title="DFP"></a>DFP</h4><p>用$G_k$拟合$H_k^{-1}$</p>
+<h3 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h3><p>存储$B_k^{-1}$消耗的空间过大，考虑通过两个向量序列进行近似表达，且只存储这两个向量序列的m组，多余的不断被舍弃（运用数学推导）</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/itplus/article/details/21897715" target="_blank" rel="noopener">https://blog.csdn.net/itplus/article/details/21897715</a>  L-BFGS</p>
+</blockquote>
+<h2 id="English"><a href="#English" class="headerlink" title="English"></a>English</h2><ul>
+<li><p>gradient descent  梯度下降</p>
+</li>
+<li><p>stochastic gradient descent  随机梯度下降</p>
+</li>
+<li><p>mini-batch gradient descent  小批量梯度下降</p>
+</li>
+<li><p>Quasi-Newton method  拟牛顿法</p>
+</li>
+<li><p>Positive definite matrix  正定矩阵</p>
+</li>
+<li><p>symmetric matrix  对称矩阵</p>
+</li>
+<li><p>Hessian matrix  黑塞矩阵</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数学</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>最优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2020/02/18/%E7%86%B5/</url>
+    <content><![CDATA[<p>信息的不确定性和信息量有很大关系，熵是描述随机变量不确定性的度量。</p>
+<a id="more"></a>
+<h2 id="log的来源"><a href="#log的来源" class="headerlink" title="log的来源"></a>log的来源</h2><p>设信息量为$h(x)$，A和B的信息量为$h(A)+h(B)$，假设独立，同时发生的概率为$p(a)p(b)$，可见有log关系</p>
+<p>同时也显然变量的不确定性越大，包含的信息就越多。</p>
+<h2 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h2><p>$H(X)=H(P)=-\sum \limits_{i=1}^{n} p_i \log p_i$</p>
+<p>由于和随机变量取值无关，所以也可以写成$H(P)$，以2为底时单位为bit</p>
+<p>可用拉格朗日证明 $0\le H(P) \le \log n$</p>
+<p>信息熵也是最短平均码长，一个事件结果的出现概率越低，对其编码的bit长度就越长。</p>
+<h2 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h2><p>$H(Y|X)=-\sum \limits_{i=1}^{n} p_i H(Y|X=p_i)$</p>
+<h2 id="互信息"><a href="#互信息" class="headerlink" title="互信息"></a>互信息</h2><p>在知道X发生情况下不确定性减少的程度</p>
+<p>$I(X;Y)=H(Y)-H(Y|X)$</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200218214940.png" alt=""></p>
+<h2 id="相对熵-KL散度"><a href="#相对熵-KL散度" class="headerlink" title="相对熵 / KL散度"></a>相对熵 / KL散度</h2><p>编码方案不一定完美时（以为非真实分布q(x)，但实际数据分布还是p(x)），平均码长相对于最小码长的增加值。用于量化两种概率分布P和Q之间差异，相对熵越大差异越大，相同的分布相对熵为0</p>
+<p>$D_{KL}(P||Q)=\sum \limits_i P(i) \log \frac{P_(i)}{Q(i)}$</p>
+<p>可用Jensen inequality证明<strong>KL散度≥0</strong>（提出log）</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200218215701.png" alt=""></p>
+<p><strong>JS散度</strong>：KL散度是不对称的，JS散度度量了两个概率分布的相似度，基于KL散度的变体，解决了KL散度非对称的问题。一般地，JS散度是对称的，其取值是0到1之间。</p>
+<p>$ JS(P_1||P_2) = \frac{1}{2}KL(P_1||\frac{P_1+P_2}{2}) + \frac{1}{2}KL(P_2||\frac{P_1+P_2}{2})$</p>
+<h2 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h2><p>编码方案不一定完美时（以为非真实分布q(x)，但实际数据分布还是p(x)），平均码长是多少</p>
+<p>$\begin{align<em>} H(P,Q) &amp;= -\sum\limits_{i=1}^{n} P(i)\log Q(i) \\&amp;= -E_{x\sim P}\log Q(x) \\&amp;= H(P)+D_{KL}(P||Q) \\&amp;\ge H(P) \end{align</em>}$</p>
+<p>分类损失函数可用交叉熵，用于计算模型分布与目标分布间的差异。而一般模型分布的熵为常数，所以用交叉熵等价于用KL做损失函数。</p>
+<p>极大似然估计等价于最小化交叉熵？（均匀分布？伯努利分布？？）</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>决策树 ID3.0求信息增益，<strong>实际求类与特征的互信息</strong></p>
+<p>最大熵模型求使条件熵最大的模型</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.zhihu.com/question/41252833" target="_blank" rel="noopener">https://www.zhihu.com/question/41252833</a> </p>
+<p><a href="https://www.cnblogs.com/kyrieng/p/8694705.html" target="_blank" rel="noopener">https://www.cnblogs.com/kyrieng/p/8694705.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/74075915" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/74075915</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/84764177" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84764177</a>  最小化交叉熵和极大似然</p>
+<p>《数学之美》</p>
+]]></content>
+      <categories>
+        <category>数学</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>熵</tag>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>矩阵求导</title>
     <url>/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</url>
     <content><![CDATA[<p>矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。</p>
@@ -73,6 +177,7 @@
         <category>数学</category>
       </categories>
       <tags>
+        <tag>数学</tag>
         <tag>矩阵</tag>
       </tags>
   </entry>

@@ -49,21 +49,28 @@
   };
 </script>
 
-  <meta name="description" content="矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。">
+  <meta name="description" content="优化问题可以分为无约束优化问题和有约束优化问题。有约束可用拉格朗日乘子法，下面主要针对无约束问题，一般求解目标函数的全局最优解很难，常用迭代法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="矩阵求导">
-<meta property="og:url" content="http:&#x2F;&#x2F;qypu1r.coding-pages.com&#x2F;2020&#x2F;02&#x2F;18&#x2F;%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC&#x2F;index.html">
+<meta property="og:title" content="最优化方法">
+<meta property="og:url" content="http:&#x2F;&#x2F;qypu1r.coding-pages.com&#x2F;2020&#x2F;02&#x2F;23&#x2F;%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="Rkkkk">
-<meta property="og:description" content="矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。">
+<meta property="og:description" content="优化问题可以分为无约束优化问题和有约束优化问题。有约束可用拉格朗日乘子法，下面主要针对无约束问题，一般求解目标函数的全局最优解很难，常用迭代法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-17T16:20:09.000Z">
-<meta property="article:modified_time" content="2020-02-18T02:19:08.627Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223110213.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223100103.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;imgconvert.csdnimg.cn&#x2F;aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNjIxODA1LWZkYmQ1ZGU5ZDRmMTc2ZGIucG5nP2ltYWdlTW9ncjIvYXV0by1vcmllbnQvc3RyaXAlN0NpbWFnZVZpZXcyLzIvdy84NTgvZm9ybWF0L3dlYnA?x-oss-process&#x3D;image&#x2F;format,png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223102403.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223103454.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;B1CA62D9DEDE87F68C1EA0AFDE3049C2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223104709.png">
+<meta property="article:published_time" content="2020-02-23T01:08:49.000Z">
+<meta property="article:modified_time" content="2020-02-23T03:02:29.498Z">
 <meta property="article:author" content="我很欣赏你">
-<meta property="article:tag" content="数学">
-<meta property="article:tag" content="矩阵">
+<meta property="article:tag" content="最优化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223110213.png">
 
-<link rel="canonical" href="http://qypu1r.coding-pages.com/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
+<link rel="canonical" href="http://qypu1r.coding-pages.com/2020/02/23/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -75,7 +82,7 @@
   };
 </script>
 
-  <title>矩阵求导 | Rkkkk</title>
+  <title>最优化方法 | Rkkkk</title>
   
 
 
@@ -213,7 +220,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://qypu1r.coding-pages.com/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
+    <link itemprop="mainEntityOfPage" href="http://qypu1r.coding-pages.com/2020/02/23/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -226,7 +233,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          矩阵求导
+          最优化方法
         </h1>
 
         <div class="post-meta">
@@ -237,7 +244,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-18 00:20:09 / 修改时间：10:19:08" itemprop="dateCreated datePublished" datetime="2020-02-18T00:20:09+08:00">2020-02-18</time>
+              <time title="创建时间：2020-02-23 09:08:49 / 修改时间：11:02:29" itemprop="dateCreated datePublished" datetime="2020-02-23T09:08:49+08:00">2020-02-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,6 +254,12 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
                     <span itemprop="name">数学</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
             </span>
@@ -267,8 +280,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/23/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/23/%E6%9C%80%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -278,7 +291,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -297,71 +310,56 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。</p>
+        <p>优化问题可以分为无约束优化问题和有约束优化问题。有约束可用拉格朗日乘子法，下面主要针对无约束问题，一般求解目标函数的全局最优解很难，常用迭代法。</p>
 <a id="more"></a>
+<h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><h3 id="批量梯度下降"><a href="#批量梯度下降" class="headerlink" title="批量梯度下降"></a>批量梯度下降</h3><p>一种迭代方法，因为负梯度方向是函数值下降最快的方向，所以每次以负梯度方向更新x的值。</p>
+<p>方向导数：</p>
+<script type="math/tex; mode=display">\begin{align*} D_u(x,y)&=f_x(x,y)\cos\theta+f_y(x,y)\sin\theta \\ &=(f_x(x,y),f_y(x,y)) \begin{pmatrix} \cos\theta \\ \sin\theta \end{pmatrix} \\&= |A||I|\cos\alpha \end{align*}</script><p>$\alpha=0$时方向导数最大，且此时函数值下降最快的方向（函数变化率最大的方向）和A的方向相同，A的方向也就是梯度方向（一个点确定后，梯度方向是固定的）。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223110213.png" alt=""></p>
+<h3 id="随机梯度下降"><a href="#随机梯度下降" class="headerlink" title="随机梯度下降"></a>随机梯度下降</h3><p>Stochastic gradient descent，每次只用一个实例去更新参数，适用于数据量大的情况下，可用于在线学习，但每一次不一定朝着正确的方向下降</p>
+<p>例如若损失函数为平方损失函数，只用一个数据 $(x^{(i)},y^{(i)})$ </p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha[h_\theta(x^{(i)}-y^{(i)})x^{(i)}_j]</script><p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223100103.png" alt=""></p>
+<h3 id="小批量梯度下降"><a href="#小批量梯度下降" class="headerlink" title="小批量梯度下降"></a>小批量梯度下降</h3><p>介于批量梯度下降和随机梯度下降之间，每次计算常数b个数据。</p>
+<script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{1}{b}\sum\limits_{k=1}^{i+b-1}[h_\theta(x^{(k)}-y^{(k)})x^{(k)}_j]</script><h2 id="牛顿法和拟牛顿法"><a href="#牛顿法和拟牛顿法" class="headerlink" title="牛顿法和拟牛顿法"></a>牛顿法和拟牛顿法</h2><h3 id="牛顿法求方程根"><a href="#牛顿法求方程根" class="headerlink" title="牛顿法求方程根"></a>牛顿法求方程根</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNjIxODA1LWZkYmQ1ZGU5ZDRmMTc2ZGIucG5nP2ltYWdlTW9ncjIvYXV0by1vcmllbnQvc3RyaXAlN0NpbWFnZVZpZXcyLzIvdy84NTgvZm9ybWF0L3dlYnA?x-oss-process=image/format,png" alt=""></p>
+<h3 id="牛顿法求解无约束最优化问题"><a href="#牛顿法求解无约束最优化问题" class="headerlink" title="牛顿法求解无约束最优化问题"></a>牛顿法求解无约束最优化问题</h3><p>将f(x)进行二阶泰勒展开。因为有极值的必要条件是极值点处一阶导数为0，当对应的黑塞矩阵为正定矩阵时函数f(x)极值为极小值。牛顿法推导的核心是$\nabla f(x^{(k+1)})=0$</p>
+<p>二阶泰勒：$f(x)=f(x^{(k)})+g_k^T(x-x^{(k)})+\frac{1}{2}(x-x^{(k)})^TH(x^{(k)})(x-x^{(k)})$</p>
+<p>对x求导（标量对向量）：$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$</p>
+<p>令：$\nabla f(x^{(k+1)})=0$</p>
+<p>得：$x^{(k+1)}=x^{(k)}-H_k^{-1}g_k$</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223102403.png" alt=""></p>
+<p><strong>牛顿法不仅考虑当前梯度最大方向，还考虑了走一步后的方向（二阶导数），但牛顿法求逆矩阵慢</strong></p>
+<h3 id="拟牛顿法"><a href="#拟牛顿法" class="headerlink" title="拟牛顿法"></a>拟牛顿法</h3><h4 id="BFGS"><a href="#BFGS" class="headerlink" title="BFGS"></a>BFGS</h4><p>$H_K^{-1}$难求，考虑用一个矩阵对其近似。DFP用矩阵$G_k$近似$H_K^{-1}$，BFGS用矩阵$B_k$近似$H_K$</p>
+<p>由$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$，得$g_{k}=g_{k+1}+H_{k+1}(x^{(k)}-x^{(k+1)})$</p>
+<p>可见<strong>梯度的变换中包含了Hessian矩阵的信息</strong>，在迭代过程中收集了这样的信息即可不用求黑塞矩阵而去近似。</p>
+<p>令$\delta_k= x^{(k+1)}-x^{(k)},y_k=g_{k+1}-g_{k}$，则$H_{k+1}\delta_k=y_k$</p>
+<p>所以$B_{k+1}$需满足上式，也需满足是一个正定对称矩阵。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223103454.png" alt=""></p>
+<p>因为要让$B_k$可以迭代，所以如(B.26)，构造$B_{k+1}=B_{k}+\alpha uu^T+\beta vv^T$（满足对称矩阵）</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/B1CA62D9DEDE87F68C1EA0AFDE3049C2.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223104709.png" alt=""></p>
+<p>这里$B_0$可选为对角线全为1的矩阵</p>
+<p>由于拟合的是$B_k=H_k$，但实际上$B_k^{-1}$有公式可求，且$B_{(k+1)}^{-1}$与$B_k^{-1}$有递推关系式。</p>
+<h4 id="DFP"><a href="#DFP" class="headerlink" title="DFP"></a>DFP</h4><p>用$G_k$拟合$H_k^{-1}$</p>
+<h3 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h3><p>存储$B_k^{-1}$消耗的空间过大，考虑通过两个向量序列进行近似表达，且只存储这两个向量序列的m组，多余的不断被舍弃（运用数学推导）</p>
 <blockquote>
-<p>此部分看<a href="https://www.cnblogs.com/pinard/p/10750718.html" target="_blank" rel="noopener">刘建平Pinard</a>的blog，讲的非常细致，一共有五章。</p>
+<p><a href="https://blog.csdn.net/itplus/article/details/21897715" target="_blank" rel="noopener">https://blog.csdn.net/itplus/article/details/21897715</a>  L-BFGS</p>
 </blockquote>
-<h2 id="求导布局"><a href="#求导布局" class="headerlink" title="求导布局"></a>求导布局</h2><p>有标量对向量，标量对矩阵，向量对向量等。求导完后具体的格式如何与求导布局相关。一般只有标量对向量 / 矩阵求导才是默认分母布局。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">自变量\因变量</th>
-<th>标量y</th>
-<th>列向量$\mathbf{y}$</th>
-<th>矩阵$\mathbf{Y}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">标量x</td>
-<td>/</td>
-<td>$\frac{\partial \mathbf{y}}{\partial x} $   分子布局：m维列向量（默认布局）；分母布局：m维行向量</td>
-<td>$\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}$    分子布局：p×q矩阵（默认布局）分母布局：q×p矩阵</td>
-</tr>
-<tr>
-<td style="text-align:left">列向量$\mathbf{x}$</td>
-<td>$\frac{\partial{y}}{\partial \mathbf{x}}$    分子布局：n维行向量；分母布局：n维列向量（默认布局）</td>
-<td>$\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$    分子布局：m×n雅克比矩阵（默认布局）；分母布局：n×m梯度矩阵</td>
-<td>/</td>
-</tr>
-<tr>
-<td style="text-align:left">矩阵$\mathbf{X}$</td>
-<td>$\frac{\partial y}{\partial \mathbf{X}}$    分子布局：n×m矩阵；分母布局：m×n矩阵（默认布局）</td>
-<td>/</td>
-<td>/</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="定义法"><a href="#定义法" class="headerlink" title="定义法"></a>定义法</h2><p>定义法是最容易想的方法，遇到遗忘时直接推即可，但运算较为复杂，常用有</p>
-<ul>
-<li><p>$\frac{\partial a^Tx}{\partial x}=a$</p>
+<h2 id="English"><a href="#English" class="headerlink" title="English"></a>English</h2><ul>
+<li><p>gradient descent  梯度下降</p>
 </li>
-<li><p>$\frac{\partial x^Tx}{\partial x}=2x$</p>
+<li><p>stochastic gradient descent  随机梯度下降</p>
 </li>
-<li><p>$\frac{\partial \mathbf{x}^T\mathbf{A}\mathbf{x}}{\partial \mathbf{x}} = \mathbf{A}^T\mathbf{x} + \mathbf{A}\mathbf{x}$   ($\frac{\partial \mathbf{x}^T\mathbf{A}\mathbf{x}}{\partial x_k} = \frac{\partial \sum\limits_{i=1}^n\sum\limits_{j=1}^n x_iA_{ij}x_j}{\partial x_k} = \sum\limits_{i=1}^n A_{ik}x_i + \sum\limits_{j=1}^n A_{kj}x_j$)</p>
+<li><p>mini-batch gradient descent  小批量梯度下降</p>
 </li>
-<li><p>$\frac{\partial \mathbf{a}^T\mathbf{X}\mathbf{b}}{\partial \mathbf{X}} = ab^T$  ($\frac{\partial \mathbf{a}^T\mathbf{X}\mathbf{b}}{\partial X_{ij}} =  \frac{\partial \sum\limits_{p=1}^m\sum\limits_{q=1}^n a_pA_{pq}b_q}{\partial X_{ij}} =  \frac{\partial a_iA_{ij}b_j}{\partial X_{ij}} = a_ib_j$)</p>
+<li><p>Quasi-Newton method  拟牛顿法</p>
+</li>
+<li><p>Positive definite matrix  正定矩阵</p>
+</li>
+<li><p>symmetric matrix  对称矩阵</p>
+</li>
+<li><p>Hessian matrix  黑塞矩阵</p>
 </li>
 </ul>
-<p>一些求导的基本法则还是类似普通求导</p>
-<h2 id="微分法"><a href="#微分法" class="headerlink" title="微分法"></a>微分法</h2><p>主要利用矩阵的迹：</p>
-<ul>
-<li><p>$df=\sum\limits_{i=1}^n\frac{\partial f}{\partial x_i}dx_i = (\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x}=tr((\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x})$ （标量的迹是其本身，矩阵也可做对应推导）</p>
-</li>
-<li><p>$df =tr(df)$</p>
-</li>
-</ul>
-<p>一般先对原式求微分，再两边套上迹，利用微分和迹的公式</p>
-<blockquote>
-<p><a href="https://www.cnblogs.com/pinard/p/10791506.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/10791506.html</a></p>
-</blockquote>
-<h2 id="链式法则"><a href="#链式法则" class="headerlink" title="链式法则"></a>链式法则</h2><p>向量对向量：$\frac{\partial \mathbf{z}}{\partial \mathbf{x}} = \frac{\partial \mathbf{z}}{\partial \mathbf{y}}\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$</p>
-<p><strong>标量对向量</strong>：$(\frac{\partial z}{\partial \mathbf{x}})^T = (\frac{\partial z}{\partial \mathbf{y}})^T\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$</p>
-<p>标量对向量可用于平方损失函数$l=(X\theta - y)^T(X\theta - y)$的求导：令$z = X\theta - y$, $l=z^Tz$，实在不行也可以拆开逐项求导</p>
-<h2 id="矩阵对矩阵求导"><a href="#矩阵对矩阵求导" class="headerlink" title="矩阵对矩阵求导"></a>矩阵对矩阵求导</h2><p>用的不是太多，需要时再看</p>
 
     </div>
 
@@ -381,8 +379,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-               <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
-               <a href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag"><i class="fa fa-tag"></i> 矩阵</a>
+               <a href="/tags/%E6%9C%80%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 最优化</a>
           </div>
 
         
@@ -391,13 +388,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/17/hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F/" rel="prev" title="hexo自定义样式（完结）">
-      <i class="fa fa-chevron-left"></i> hexo自定义样式（完结）
+    <a href="/2020/02/18/%E7%86%B5/" rel="prev" title="熵">
+      <i class="fa fa-chevron-left"></i> 熵
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/18/%E7%86%B5/" rel="next" title="熵">
-      熵 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -458,7 +452,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#求导布局"><span class="nav-text">求导布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义法"><span class="nav-text">定义法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微分法"><span class="nav-text">微分法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链式法则"><span class="nav-text">链式法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵对矩阵求导"><span class="nav-text">矩阵对矩阵求导</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法"><span class="nav-text">梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#批量梯度下降"><span class="nav-text">批量梯度下降</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机梯度下降"><span class="nav-text">随机梯度下降</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小批量梯度下降"><span class="nav-text">小批量梯度下降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#牛顿法和拟牛顿法"><span class="nav-text">牛顿法和拟牛顿法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿法求方程根"><span class="nav-text">牛顿法求方程根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#牛顿法求解无约束最优化问题"><span class="nav-text">牛顿法求解无约束最优化问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拟牛顿法"><span class="nav-text">拟牛顿法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BFGS"><span class="nav-text">BFGS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DFP"><span class="nav-text">DFP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L-BFGS"><span class="nav-text">L-BFGS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#English"><span class="nav-text">English</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
