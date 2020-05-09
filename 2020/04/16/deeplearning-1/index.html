@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/jiji_cat_32px_1141982_easyicon.net.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/jiji_cat_16px_1141982_easyicon.net.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=EB Garamond:300,300italic,400,400italic,700,700italic|Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://qypu1r.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Neural Networks and Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deeplearning-1">
+<meta property="og:url" content="http:&#x2F;&#x2F;qypu1r.coding-pages.com&#x2F;2020&#x2F;04&#x2F;16&#x2F;deeplearning-1&#x2F;index.html">
+<meta property="og:site_name" content="Rkkkk">
+<meta property="og:description" content="Neural Networks and Deep Learning">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200416142117.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cs231n.github.io&#x2F;assets&#x2F;imagemap.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cs231n.github.io&#x2F;assets&#x2F;margin.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200417003858.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200417005242.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cs231n.github.io&#x2F;assets&#x2F;svmvssoftmax.png">
+<meta property="article:published_time" content="2020-04-16T05:08:49.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:44:42.124Z">
+<meta property="article:author" content="我很欣赏你">
+<meta property="article:tag" content="神经网络">
+<meta property="article:tag" content="deeplearning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200416142117.png">
+
+<link rel="canonical" href="http://qypu1r.coding-pages.com/2020/04/16/deeplearning-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Deeplearning-1 | Rkkkk</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rkkkk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qypu1r.coding-pages.com/2020/04/16/deeplearning-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="我很欣赏你">
+      <meta itemprop="description" content="Go go go!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rkkkk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Deeplearning-1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 13:08:49" itemprop="dateCreated datePublished" datetime="2020-04-16T13:08:49+08:00">2020-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-17 10:44:42" itemprop="dateModified" datetime="2020-04-17T10:44:42+08:00">2020-04-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/16/deeplearning-1/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/16/deeplearning-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Neural Networks and Deep Learning</p>
+<a id="more"></a>
+<h2 id="CS231n-1"><a href="#CS231n-1" class="headerlink" title="CS231n-1"></a>CS231n-1</h2><p><a href="https://cs231n.github.io/classification/" target="_blank" rel="noopener">Image Classification: Data-driven Approach, k-Nearest Neighbor, train/val/test splits</a></p>
+<p>此章为介绍篇，主要针对<code>image classification</code>问题</p>
+<p>内容包括<code>L1/L2 distances, hyperparameter search, cross-validation</code></p>
+<p><strong>一个好的图像分类器应该可以<code>invariant to images</code>，在一些论文中有提到此概念</strong></p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200416142117.png" alt=""></p>
+<p>文中提到用KNN做，距离度量为L1 / L2 norm。文中还提到了validation set的意义：用于调参，比如KNN中K的取值，如果直接在test set上调整可能会过拟合，如果训练集较少还可以用<code>K-fold cross-validation</code>，即将训练集划分成K个大小相等的子集，每次选K-1个作为训练集，1个作为验证集，再将K次这种操作的误差平均。</p>
+<ul>
+<li><p>优点：</p>
+<p>KNN无需训练</p>
+</li>
+<li><p>缺点：</p>
+<p>计算量大；虽然训练时间短（实际并没有），但是测试时间很长（要一个一个比较），<code>computational cost</code>大；分类器需要记住所有的图片；度量图片相似度的方法不一定好，尤其是面对图像这种高维数据。如果两个图片背景都是白色，但内容一个是狗一个是猪，用L1 / L2的话这两张图却可能非常相似。</p>
+</li>
+</ul>
+<h2 id="CS231n-2"><a href="#CS231n-2" class="headerlink" title="CS231n-2"></a>CS231n-2</h2><p><a href="https://cs231n.github.io/linear-classify/" target="_blank" rel="noopener">Linear classification: Support Vector Machine, Softmax</a></p>
+<p>这一章是对第一章的补充，因为KNN实在太不适合了，主要介绍了SVM和Softmax在图像分类上的应用。</p>
+<p>内容包括<code>parameteric approach, bias trick, hinge loss, cross-entropy loss, L2 regularization, web demo</code></p>
+<h3 id="svm"><a href="#svm" class="headerlink" title="svm"></a>svm</h3><p>由于KNN无训练过程，但是测试时需要保存大量图片信息，考虑使用得分，损失函数的模型，此时有训练过程，但测试时使用模型参数即可。此章主要介绍<code>linear model</code></p>
+<p><img src="https://cs231n.github.io/assets/imagemap.jpg" alt="img"></p>
+<ul>
+<li><p>模型：$f: R^D \mapsto R^K$,$f(x_i, W, b) =  W x_i + b$</p>
+</li>
+<li><p>损失函数使用<code>Hinge loss</code>： $L_i = \sum_{j\neq y_i} \max(0, s_j - s_{y_i} + \Delta) = \sum_{j\neq y_i} \max(0, w_j^T x_i - w_{y_i}^T x_i + \Delta)$，$\Delta$为<code>margin</code></p>
+<p>有时会使用 <code>squared hinge loss SVM</code> (L2-SVM)，to penalize violated margins more strongly</p>
+</li>
+</ul>
+<p><img src="https://cs231n.github.io/assets/margin.jpg" alt="img"></p>
+<ul>
+<li><p>正则化：$R(W) = \sum_k\sum_l W_{k,l}^2$</p>
+</li>
+<li><p>整体损失函数：$L = \frac{1}{N} \sum_i \sum_{j\neq y_i} \left[ \max(0, f(x_i; W)_j - f(x_i; W)_{y_i} + \Delta) \right] + \lambda \sum_k\sum_l W_{k,l}^2$</p>
+</li>
+</ul>
+<p>与<code>Binary SVM</code>对比：$L_i = C \max(0, 1 - y_i w^Tx_i) + R(W)$，$y_i \in \{ -1,1 \}$，如果分类问题只有两类的话，其实本质是一样的，并且可以认为$C \propto \frac{1}{\lambda}$</p>
+<p>一般<code>Multiclass SVM</code>采用<strong>One-Vs-All</strong>(OVA)  SVM: trains an independent binary SVM for each class vs. all other classes.</p>
+<h3 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h3><ul>
+<li><p>损失函数：<code>cross-entropy loss</code>：$L_i = -\log\left(\frac{e^{f_{y_i}}}{ \sum_j e^{f_j} }\right)$</p>
+</li>
+<li><p>cross-entropy ：$H(p,q) = - \sum_x p(x) \log q(x)$</p>
+</li>
+</ul>
+<p>最小化交叉熵也等价于最小化<code>KL divergence</code>，因为$H(p,q) = H(p) + D_{KL}(p||q)$，而最小化KL意味着实际上是让两个分布尽可能的接近。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200417003858.png" alt=""></p>
+<ul>
+<li><p><strong>Probabilistic interpretation</strong>：</p>
+<p>每一类的概率为：$P(y_i \mid x_i; W) = \frac{e^{f_{y_i}}}{\sum_j e^{f_j} }$</p>
+<p>又因为最后的标签为(0,…,0,1,0,…,0)，所以损失函数如上所示，事实上，这也是<code>MLE</code>，即最小化$- \sum_i \log p_i$（因为标签为0, 1），而若加上正则化，实际是加上了<code>Gaussian Prior</code>，此时即为<code>MAP</code>（MAP = MLE * Likelihood）</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200417005242.png" alt=""></p>
+<ul>
+<li><p><strong>Numeric stability</strong>：若$f_j$过大，再加上指数会导致整个值特别大，所以需要避免此问题。解决方法见下式，通常取$\log C = -\max_j f_j$</p>
+<script type="math/tex; mode=display">\frac{e^{f_{y_i}}}{\sum_j e^{f_j}} = \frac{Ce^{f_{y_i}}}{C\sum_j e^{f_j}} = \frac{e^{f_{y_i} + \log C}}{\sum_j e^{f_j + \log C}}</script></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f = np.array([<span class="number">123</span>, <span class="number">456</span>, <span class="number">789</span>]) <span class="comment"># example with 3 classes and each having large scores</span></span><br><span class="line">p = np.exp(f) / np.sum(np.exp(f)) <span class="comment"># Bad: Numeric problem, potential blowup</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># instead: first shift the values of f so that the highest number is 0:</span></span><br><span class="line">f -= np.max(f) <span class="comment"># f becomes [-666, -333, 0]</span></span><br><span class="line">p = np.exp(f) / np.sum(np.exp(f)) <span class="comment"># safe to do, gives the correct answer</span></span><br></pre></td></tr></table></figure>
+<h3 id="SVM-vs-Softmax"><a href="#SVM-vs-Softmax" class="headerlink" title="SVM vs. Softmax"></a>SVM vs. Softmax</h3><p><img src="https://cs231n.github.io/assets/svmvssoftmax.png" alt="img"></p>
+<p>svm算的是得分，而softmax将其转换成了概率。</p>
+<p>对于一组数据，考虑分数[10, -2, 3]，[10, -111, -99]，softmax会将概率输出更极端，如果svm的margin=1，则两者实际相同，这既算是svm的bug，也算是svm的feature。</p>
+<p>更多关于损失函数内容：<a href="https://rohanvarma.me/Loss-Functions/" target="_blank" rel="noopener">https://rohanvarma.me/Loss-Functions/</a></p>
+<h2 id="Week-1"><a href="#Week-1" class="headerlink" title="Week 1"></a>Week 1</h2>
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------The End<i class="fa fa-paw"></i>-------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+               <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 神经网络</a>
+               <a href="/tags/deeplearning/" rel="tag"><i class="fa fa-tag"></i> deeplearning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/16/deeplearning/" rel="prev" title="Deeplearning">
+      <i class="fa fa-chevron-left"></i> Deeplearning
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CS231n-1"><span class="nav-text">CS231n-1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS231n-2"><span class="nav-text">CS231n-2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#svm"><span class="nav-text">svm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Softmax"><span class="nav-text">Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVM-vs-Softmax"><span class="nav-text">SVM vs. Softmax</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-1"><span class="nav-text">Week 1</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+        
+      <div class="site-overview-wrap sidebar-panel">
+        <!--作者头像姓名签名-->
+<div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <a href="/">    
+    <img class="site-author-image" itemprop="image" alt="我很欣赏你"
+      src="/images/avatar.jpg">
+      </a>
+  <p class="site-author-name" itemprop="name">我很欣赏你</p>
+  <div class="site-description" itemprop="description">Go go go!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+    <!--日志-->
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+    <!--分类-->
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+
+    <!--标签-->
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<!--图标栏-->
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin fa-lg"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      <!--侧边栏返回顶部标识-->
+    </div>
+    
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">我很欣赏你</span>
+
+<!-- 底栏总字长 -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+<!---->
+<!--       <span class="post-meta-item-text">站点总字数：</span>-->
+<!---->
+    <span title="站点总字数">95k</span>
+
+<!-- 底栏总阅读时间 -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+<!---->
+<!--    <span class="post-meta-item-text">站点阅读时长 &asymp;</span>-->
+<!---->
+    <span title="站点阅读时长">1:46</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span> &nbsp;&nbsp;Talk is cheap. Show me the code.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("12/12/2019 12:00:00");    //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; 
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); 
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 )
+        {
+            hnum = "0" + hnum;
+        } 
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 )
+        {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); 
+        if(String(snum).length ==1 )
+        {
+            snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒    ";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+<!--备案信息-->
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备20005221号-1</a>
+    <span> &nbsp | &nbsp</span>
+      <img src="http://www.beian.gov.cn/portal/download?token=7ec73880-3394-48ef-933f-1710644bc2ec" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32111102000194" rel="noopener" target="_blank">苏公网安备 32111102000194号 </a>
+  </div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: true,
+      appId: 'OQqgSbJIYga73FaHFPLMJngp-gzGzoHsz',
+      appKey: 'UpH8H3RynfSOI0lMmpBlVEeJ',
+      placeholder: "留个评论吧☺",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":160,"height":360},"mobile":{"show":false},"react":{"opacity":0.7},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
+<!--点击爱心-->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!--下雪效果-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.6/js/snow3.js"></script>

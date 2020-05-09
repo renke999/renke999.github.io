@@ -64,7 +64,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;B1CA62D9DEDE87F68C1EA0AFDE3049C2.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200223104709.png">
 <meta property="article:published_time" content="2020-02-23T01:08:49.000Z">
-<meta property="article:modified_time" content="2020-02-23T03:02:29.498Z">
+<meta property="article:modified_time" content="2020-04-14T13:01:34.117Z">
 <meta property="article:author" content="我很欣赏你">
 <meta property="article:tag" content="最优化">
 <meta name="twitter:card" content="summary">
@@ -242,10 +242,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-23 09:08:49 / 修改时间：11:02:29" itemprop="dateCreated datePublished" datetime="2020-02-23T09:08:49+08:00">2020-02-23</time>
+              <time title="创建时间：2020-02-23 09:08:49" itemprop="dateCreated datePublished" datetime="2020-02-23T09:08:49+08:00">2020-02-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-14 21:01:34" itemprop="dateModified" datetime="2020-04-14T21:01:34+08:00">2020-04-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -291,14 +297,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -316,12 +322,34 @@
 <p>方向导数：</p>
 <script type="math/tex; mode=display">\begin{align*} D_u(x,y)&=f_x(x,y)\cos\theta+f_y(x,y)\sin\theta \\ &=(f_x(x,y),f_y(x,y)) \begin{pmatrix} \cos\theta \\ \sin\theta \end{pmatrix} \\&= |A||I|\cos\alpha \end{align*}</script><p>$\alpha=0$时方向导数最大，且此时函数值下降最快的方向（函数变化率最大的方向）和A的方向相同，A的方向也就是梯度方向（一个点确定后，梯度方向是固定的）。</p>
 <p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223110213.png" alt=""></p>
+<p>梯度下降法可能会收敛到局部最优，模拟退火法可能跳出局部最优。</p>
 <h3 id="随机梯度下降"><a href="#随机梯度下降" class="headerlink" title="随机梯度下降"></a>随机梯度下降</h3><p>Stochastic gradient descent，每次只用一个实例去更新参数，适用于数据量大的情况下，可用于在线学习，但每一次不一定朝着正确的方向下降</p>
 <p>例如若损失函数为平方损失函数，只用一个数据 $(x^{(i)},y^{(i)})$ </p>
 <script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha[h_\theta(x^{(i)}-y^{(i)})x^{(i)}_j]</script><p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223100103.png" alt=""></p>
-<h3 id="小批量梯度下降"><a href="#小批量梯度下降" class="headerlink" title="小批量梯度下降"></a>小批量梯度下降</h3><p>介于批量梯度下降和随机梯度下降之间，每次计算常数b个数据。</p>
+<p>优化：可以对每次的学习速率进行限制，迭代次数越大学习速率越小，防止数据波动或高频振动</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Logistic Regression</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradAscent1</span><span class="params">(dataMatrix, classLabels, numIter=<span class="number">150</span>)</span>:</span></span><br><span class="line">    m,n = np.shape(dataMatrix)</span><br><span class="line">    weights = np.ones(n)    <span class="comment"># initialize to all ones</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(numIter):</span><br><span class="line">        dataIndex = range(m)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            alpha = <span class="number">4</span>/(<span class="number">1.0</span>+j+i) + <span class="number">0.0001</span></span><br><span class="line">            randIndex = int(random.uniform(<span class="number">0</span>,len(dataIndex)))    <span class="comment">#start from 0 because of the constant</span></span><br><span class="line">            h = sigmoid(sum(dataMatrix[randIndex]*weights))</span><br><span class="line">            error = classLabels[randIndex] - h</span><br><span class="line">            weights = weights + alpha * error * dataMatrix[randIndex]</span><br><span class="line">            <span class="keyword">del</span>(dataIndex[randIndex])</span><br><span class="line">    <span class="keyword">return</span> weights</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>$\alpha = 4/(1.0+j+i)+0.0001$</p>
+<ul>
+<li>$\alpha$在每次迭代时都会调整，防止高频波动</li>
+<li>$\alpha$总体逐渐减小</li>
+<li>可适当增加常数项</li>
+<li>$\alpha$不是严格下降，在模拟退火算法等优化算法中常见</li>
+</ul>
+</li>
+<li><p>随机选取样本</p>
+<ul>
+<li>减少周期性的波动</li>
+</ul>
+</li>
+</ul>
+<h3 id="小批量梯度下降"><a href="#小批量梯度下降" class="headerlink" title="小批量梯度下降"></a>小批量梯度下降</h3><p>介于批量梯度下降和随机梯度下降之间，每次计算常数b个数据。Keras中Input的第一个维度就是batch-size</p>
 <script type="math/tex; mode=display">\theta_j:=\theta_j-\alpha\frac{1}{b}\sum\limits_{k=1}^{i+b-1}[h_\theta(x^{(k)}-y^{(k)})x^{(k)}_j]</script><h2 id="牛顿法和拟牛顿法"><a href="#牛顿法和拟牛顿法" class="headerlink" title="牛顿法和拟牛顿法"></a>牛顿法和拟牛顿法</h2><h3 id="牛顿法求方程根"><a href="#牛顿法求方程根" class="headerlink" title="牛顿法求方程根"></a>牛顿法求方程根</h3><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xNjIxODA1LWZkYmQ1ZGU5ZDRmMTc2ZGIucG5nP2ltYWdlTW9ncjIvYXV0by1vcmllbnQvc3RyaXAlN0NpbWFnZVZpZXcyLzIvdy84NTgvZm9ybWF0L3dlYnA?x-oss-process=image/format,png" alt=""></p>
-<h3 id="牛顿法求解无约束最优化问题"><a href="#牛顿法求解无约束最优化问题" class="headerlink" title="牛顿法求解无约束最优化问题"></a>牛顿法求解无约束最优化问题</h3><p>将f(x)进行二阶泰勒展开。因为有极值的必要条件是极值点处一阶导数为0，当对应的黑塞矩阵为正定矩阵时函数f(x)极值为极小值。牛顿法推导的核心是$\nabla f(x^{(k+1)})=0$</p>
+<h3 id="牛顿法求解无约束最优化问题"><a href="#牛顿法求解无约束最优化问题" class="headerlink" title="牛顿法求解无约束最优化问题"></a>牛顿法求解无约束最优化问题</h3><blockquote>
+<p>关于黑塞矩阵 <a href="https://blog.csdn.net/quicmous/article/details/53317512" target="_blank" rel="noopener">https://blog.csdn.net/quicmous/article/details/53317512</a></p>
+</blockquote>
+<p>将f(x)进行二阶泰勒展开。因为有极值的必要条件是极值点处一阶导数为0，当对应的黑塞矩阵为正定矩阵时函数f(x)极值为极小值。牛顿法推导的核心是$\nabla f(x^{(k+1)})=0$</p>
+<p>$g_k$为梯度，$H_k$为Hessian</p>
 <p>二阶泰勒：$f(x)=f(x^{(k)})+g_k^T(x-x^{(k)})+\frac{1}{2}(x-x^{(k)})^TH(x^{(k)})(x-x^{(k)})$</p>
 <p>对x求导（标量对向量）：$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$</p>
 <p>令：$\nabla f(x^{(k+1)})=0$</p>
@@ -332,12 +360,12 @@
 <p>由$\nabla f(x)=g_k+H(x^{(k)})(x-x^{(k)})$，得$g_{k}=g_{k+1}+H_{k+1}(x^{(k)}-x^{(k+1)})$</p>
 <p>可见<strong>梯度的变换中包含了Hessian矩阵的信息</strong>，在迭代过程中收集了这样的信息即可不用求黑塞矩阵而去近似。</p>
 <p>令$\delta_k= x^{(k+1)}-x^{(k)},y_k=g_{k+1}-g_{k}$，则$H_{k+1}\delta_k=y_k$</p>
-<p>所以$B_{k+1}$需满足上式，也需满足是一个正定对称矩阵。</p>
+<p>所以$B_{k+1}$需满足<strong>上式</strong>，也需满足是一个<strong>正定对称矩阵</strong>。</p>
 <p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223103454.png" alt=""></p>
 <p>因为要让$B_k$可以迭代，所以如(B.26)，构造$B_{k+1}=B_{k}+\alpha uu^T+\beta vv^T$（满足对称矩阵）</p>
 <p><img src="https://raw.githubusercontent.com/renke999/image_host/master/B1CA62D9DEDE87F68C1EA0AFDE3049C2.jpg" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200223104709.png" alt=""></p>
-<p>这里$B_0$可选为对角线全为1的矩阵</p>
+<p>初始化的$B_0$可选为单位矩阵</p>
 <p>由于拟合的是$B_k=H_k$，但实际上$B_k^{-1}$有公式可求，且$B_{(k+1)}^{-1}$与$B_k^{-1}$有递推关系式。</p>
 <h4 id="DFP"><a href="#DFP" class="headerlink" title="DFP"></a>DFP</h4><p>用$G_k$拟合$H_k^{-1}$</p>
 <h3 id="L-BFGS"><a href="#L-BFGS" class="headerlink" title="L-BFGS"></a>L-BFGS</h3><p>存储$B_k^{-1}$消耗的空间过大，考虑通过两个向量序列进行近似表达，且只存储这两个向量序列的m组，多余的不断被舍弃（运用数学推导）</p>
@@ -354,6 +382,8 @@
 <li><p>Quasi-Newton method  拟牛顿法</p>
 </li>
 <li><p>Positive definite matrix  正定矩阵</p>
+</li>
+<li><p>identity matrix  单位矩阵</p>
 </li>
 <li><p>symmetric matrix  对称矩阵</p>
 </li>
@@ -391,7 +421,10 @@
     <a href="/2020/02/18/%E7%86%B5/" rel="prev" title="熵">
       <i class="fa fa-chevron-left"></i> 熵
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/23/HTML%E8%8B%B1%E6%96%87/" rel="next" title="HTML英文">
+      HTML英文 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -473,7 +506,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -482,7 +515,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
 
@@ -490,7 +523,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -554,7 +587,7 @@
 <!---->
 <!--       <span class="post-meta-item-text">站点总字数：</span>-->
 <!---->
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">95k</span>
 
 <!-- 底栏总阅读时间 -->
     <span class="post-meta-divider">|</span>
@@ -564,7 +597,7 @@
 <!---->
 <!--    <span class="post-meta-item-text">站点阅读时长 &asymp;</span>-->
 <!---->
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">1:46</span>
 </div>
 
 

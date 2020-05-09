@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/jiji_cat_32px_1141982_easyicon.net.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/jiji_cat_16px_1141982_easyicon.net.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=EB Garamond:300,300italic,400,400italic,700,700italic|Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://qypu1r.coding-pages.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="机器学习常会出现过拟合，一般常加正则化项来防止，正则化项常利用范数。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="范数">
+<meta property="og:url" content="http:&#x2F;&#x2F;qypu1r.coding-pages.com&#x2F;2020&#x2F;02&#x2F;24&#x2F;%E8%8C%83%E6%95%B0&#x2F;index.html">
+<meta property="og:site_name" content="Rkkkk">
+<meta property="og:description" content="机器学习常会出现过拟合，一般常加正则化项来防止，正则化项常利用范数。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200225075804.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200225172230.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-16d8a5efb4d6e6c061426ffe7c8cf6e3_720w.jpg">
+<meta property="article:published_time" content="2020-02-24T00:06:46.000Z">
+<meta property="article:modified_time" content="2020-02-26T01:44:28.033Z">
+<meta property="article:author" content="我很欣赏你">
+<meta property="article:tag" content="矩阵">
+<meta property="article:tag" content="范数">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200225075804.png">
+
+<link rel="canonical" href="http://qypu1r.coding-pages.com/2020/02/24/%E8%8C%83%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>范数 | Rkkkk</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Rkkkk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qypu1r.coding-pages.com/2020/02/24/%E8%8C%83%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="我很欣赏你">
+      <meta itemprop="description" content="Go go go!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rkkkk">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          范数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-24 08:06:46" itemprop="dateCreated datePublished" datetime="2020-02-24T08:06:46+08:00">2020-02-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-26 09:44:28" itemprop="dateModified" datetime="2020-02-26T09:44:28+08:00">2020-02-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">数学</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/24/%E8%8C%83%E6%95%B0/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/24/%E8%8C%83%E6%95%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>机器学习常会出现过拟合，一般常加正则化项来防止，正则化项常利用范数。</p>
+<a id="more"></a>
+<h2 id="向量范数"><a href="#向量范数" class="headerlink" title="向量范数"></a>向量范数</h2><blockquote>
+<p>向量范数的本质是距离，存在的意义是为了实现比较。它其实是一个函数，把不能比较的向量转换成可以比较的实数。 <a href="https://www.zhihu.com/question/21868680/answer/136376374" target="_blank" rel="noopener">https://www.zhihu.com/question/21868680/answer/136376374</a></p>
+</blockquote>
+<p>范数需要满足正定性，齐次性和三角不等式。</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200225075804.png" alt=""></p>
+<p>$L_p$范数：$||x||_p=(\sum\limits_{j=1}^N |x|_j^p)^{1/p}$</p>
+<p>$L_0$范数：x中非0元素个数</p>
+<p>$L_1$范数：x中所有元素绝对值之和  (Lasso Regression)</p>
+<p>$L_2$范数：x中所有元素平方和开根号  (Ridge Regression)</p>
+<p>$L_\infty$范数：x中绝对值最大的元素</p>
+<p><br/></p>
+<ol>
+<li><p>在正则化中，L0范数可以引起稀疏，但L0范数很难优化求解，L1范数是L0范数的最优凸近似（？）。正则化能抑制系数</p>
+<p>$\frac{\partial L1}{\partial w_i}=sign{w_i}=\pm 1$，$w_i:=w_i\pm\eta$，权值每次更新都固定减少一个特定的值</p>
+<p>$\frac{\partial L2}{\partial w_i}=2w_i$，$w_i=w_i-2\eta w_i=(1-2\eta)w_i$，权值每次更新都固定减少一个特定的比例</p>
+<p>图像解释：<a href="https://vimsky.com/article/969.html" target="_blank" rel="noopener">https://vimsky.com/article/969.html</a></p>
+<p><br/></p>
+</li>
+<li><p>从贝叶斯的角度来说正则化是为模型参数估计增加一个先验知识，先验知识会引导损失函数最小值过程朝着约束方向迭代。此时最优化问题可以看做是MAP问题，正则化项对应先验信息，损失函数对应似然函数。</p>
+<p>L1正则相当于增加参数的Laplace Prior，L2正则相当于增加参数的Gaussian Prior，具体可用线性回归加上符合正态分布的误差的模型进行推导，详见链接。</p>
+<blockquote>
+<p><a href="https://stats.stackexchange.com/questions/163388/why-is-the-l2-regularization-equivalent-to-gaussian-prior111" target="_blank" rel="noopener">https://stats.stackexchange.com/questions/163388/why-is-the-l2-regularization-equivalent-to-gaussian-prior111</a></p>
+<p><a href="https://www.jianshu.com/p/a47c46153326" target="_blank" rel="noopener">https://www.jianshu.com/p/a47c46153326</a></p>
+</blockquote>
+<p>Laplace Prior：$f(x|\mu,b)=\frac{1}{2b}exp(-\frac{|x-\mu|}{b})$</p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200225172230.png" alt=""></p>
+</li>
+<li><p>对于最小二乘法，通过对代价函数矩阵形式直接求导可得$\theta=(X^TX)^{-1}Xy$，若X为m*n矩阵，当m&lt;n时</p>
+<script type="math/tex; mode=display">r(X)<m,r(X^T)<m,r(X^TX)<min(r(X),r(X^T))=m<n</script><p>则$X^TX$不可逆。而若加入正则项，$\theta=\left(X^TX+\lambda\left( \begin{smallmatrix} 0&amp;&amp;&amp;\\ &amp;1 \\&amp;&amp;1 \\ &amp;&amp;&amp;\ddots\\ &amp;&amp;&amp;&amp;1 \end{smallmatrix}\right)\right)^{-1}Xy$，避免了不可逆的情况</p>
+</li>
+</ol>
+<h2 id="矩阵范数"><a href="#矩阵范数" class="headerlink" title="矩阵范数"></a>矩阵范数</h2><p>矩阵范数除了满足向量范数的条件（把x,y换成A,B）还需要满足相容性：$||AB||\le ||A|||B||$</p>
+<p>矩阵诱导范数（由向量范数推出，满足所有性质）：$||A||_p=\max\limits_{x\ne 0}{\frac{||Ax||_p}{||x||_p}}$</p>
+<p><a href="https://zhuanlan.zhihu.com/p/32576067" target="_blank" rel="noopener">证明过程</a></p>
+<p><img src="https://pic4.zhimg.com/80/v2-16d8a5efb4d6e6c061426ffe7c8cf6e3_720w.jpg" alt=""></p>
+<p>1-范数：$||A||_1=\max\limits_{1\le j\le n}\sum\limits_{i=1}^m a_{ij}$，列和范数</p>
+<p>2-范数：$||A||_2=\max\limits_{1\le i\le n}\sum\limits_{i=1}^m a_{ij}$，行和范数</p>
+<p>$\infty$范数：$||A||_\infty=\max\limits_{1\le i\le m}(\lambda_i(A^TA))^{1/2}$，谱范数，最大特征值的开方</p>
+<p><a href="https://zhuanlan.zhihu.com/p/98978495" target="_blank" rel="noopener">证明过程</a></p>
+<p>F范数：$||A||_F=(\sum\limits_i\sum\limits_ja_{ij}^2)^{1/2}=tr(A^TA)$，是L2范数的推广，SVD是在F范数下对矩阵的最优近似。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vector_norm</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(a,np.inf)    <span class="comment">#无穷范数</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(a,<span class="number">1</span>)   <span class="comment"># L1范数</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(a,<span class="number">2</span>)    <span class="comment"># L2范数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">matrix_norm</span><span class="params">()</span>:</span></span><br><span class="line">    a = np.arange(<span class="number">9</span>) - <span class="number">4</span></span><br><span class="line">    b = a.reshape(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">    x = LA.eigvals(b) <span class="comment">#求b_new矩阵的特征值</span></span><br><span class="line">    <span class="keyword">print</span> x</span><br><span class="line">    <span class="keyword">print</span> LA.norm(b,<span class="number">1</span>)    <span class="comment"># 列范数</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(b,<span class="number">2</span>)    <span class="comment"># 谱范数</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(b,np.inf)    <span class="comment">#无穷范数</span></span><br><span class="line">    <span class="keyword">print</span> LA.norm(b,<span class="string">"fro"</span>)    <span class="comment"># F范数</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------The End<i class="fa fa-paw"></i>-------------</div>
+    
+</div>
+      
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+               <a href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag"><i class="fa fa-tag"></i> 矩阵</a>
+               <a href="/tags/%E8%8C%83%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 范数</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/23/HTML%E8%8B%B1%E6%96%87/" rel="prev" title="HTML英文">
+      <i class="fa fa-chevron-left"></i> HTML英文
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/16/deeplearning/" rel="next" title="Deeplearning">
+      Deeplearning <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#向量范数"><span class="nav-text">向量范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵范数"><span class="nav-text">矩阵范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-text">代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+        
+      <div class="site-overview-wrap sidebar-panel">
+        <!--作者头像姓名签名-->
+<div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <a href="/">    
+    <img class="site-author-image" itemprop="image" alt="我很欣赏你"
+      src="/images/avatar.jpg">
+      </a>
+  <p class="site-author-name" itemprop="name">我很欣赏你</p>
+  <div class="site-description" itemprop="description">Go go go!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+    <!--日志-->
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+    <!--分类-->
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+
+    <!--标签-->
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<!--图标栏-->
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="https://github.com/renke999" title="GitHub" rel="noopener" target="_blank"><i class="fa fa-fw fa-github fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="mailto:446917139@qq.com" title="E-Mail" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="tencent://Message/?Uin=446917139&websiteName=www.oicqzone.com&Menu=yes" title="QQ" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq fa-lg"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <!--增添了fa-lg以放大图标-->
+      <!-- 原来还有+ ' → ' + sidebarURL-->
+        <a href="/images/wechat.png" title="Wechat"><i class="fa fa-fw fa-weixin fa-lg"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      <!--侧边栏返回顶部标识-->
+    </div>
+    
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">我很欣赏你</span>
+
+<!-- 底栏总字长 -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+<!---->
+<!--       <span class="post-meta-item-text">站点总字数：</span>-->
+<!---->
+    <span title="站点总字数">95k</span>
+
+<!-- 底栏总阅读时间 -->
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+<!---->
+<!--    <span class="post-meta-item-text">站点阅读时长 &asymp;</span>-->
+<!---->
+    <span title="站点阅读时长">1:46</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span> &nbsp;&nbsp;Talk is cheap. Show me the code.
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("12/12/2019 12:00:00");    //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; 
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); 
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 )
+        {
+            hnum = "0" + hnum;
+        } 
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 )
+        {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); 
+        if(String(snum).length ==1 )
+        {
+            snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒    ";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+<!--备案信息-->
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备20005221号-1</a>
+    <span> &nbsp | &nbsp</span>
+      <img src="http://www.beian.gov.cn/portal/download?token=7ec73880-3394-48ef-933f-1710644bc2ec" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32111102000194" rel="noopener" target="_blank">苏公网安备 32111102000194号 </a>
+  </div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: true,
+      appId: 'OQqgSbJIYga73FaHFPLMJngp-gzGzoHsz',
+      appKey: 'UpH8H3RynfSOI0lMmpBlVEeJ',
+      placeholder: "留个评论吧☺",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":160,"height":360},"mobile":{"show":false},"react":{"opacity":0.7},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
+<!--点击爱心-->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+<!--下雪效果-->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.6/js/snow3.js"></script>

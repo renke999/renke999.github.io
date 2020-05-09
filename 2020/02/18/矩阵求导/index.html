@@ -56,12 +56,15 @@
 <meta property="og:site_name" content="Rkkkk">
 <meta property="og:description" content="矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200229115926.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200229115857.png">
 <meta property="article:published_time" content="2020-02-17T16:20:09.000Z">
-<meta property="article:modified_time" content="2020-02-18T02:19:08.627Z">
+<meta property="article:modified_time" content="2020-04-09T14:01:25.007Z">
 <meta property="article:author" content="我很欣赏你">
-<meta property="article:tag" content="数学">
 <meta property="article:tag" content="矩阵">
+<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;renke999&#x2F;image_host&#x2F;master&#x2F;20200229115926.png">
 
 <link rel="canonical" href="http://qypu1r.coding-pages.com/2020/02/18/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
 
@@ -235,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-18 00:20:09 / 修改时间：10:19:08" itemprop="dateCreated datePublished" datetime="2020-02-18T00:20:09+08:00">2020-02-18</time>
+              <time title="创建时间：2020-02-18 00:20:09" itemprop="dateCreated datePublished" datetime="2020-02-18T00:20:09+08:00">2020-02-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 22:01:25" itemprop="dateModified" datetime="2020-04-09T22:01:25+08:00">2020-04-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -278,14 +287,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -300,7 +309,8 @@
         <p>矩阵求导常见于机器学习一些算法的推导过程，形式简洁漂亮。使用矩阵向量求导的方法大幅简化了公式推演。</p>
 <a id="more"></a>
 <blockquote>
-<p>此部分看<a href="https://www.cnblogs.com/pinard/p/10750718.html" target="_blank" rel="noopener">刘建平Pinard</a>的blog，讲的非常细致，一共有五章。</p>
+<p>此部分主要看<a href="https://www.cnblogs.com/pinard/p/10750718.html" target="_blank" rel="noopener">刘建平Pinard</a>的blog，共有五章。</p>
+<p>向量矩阵求导本质上就是多元函数求导，仅仅是把把函数的自变量，因变量以及标量求导的结果排列成了向量矩阵的形式，方便表达与计算，更加简洁而已。</p>
 </blockquote>
 <h2 id="求导布局"><a href="#求导布局" class="headerlink" title="求导布局"></a>求导布局</h2><p>有标量对向量，标量对矩阵，向量对向量等。求导完后具体的格式如何与求导布局相关。一般只有标量对向量 / 矩阵求导才是默认分母布局。</p>
 <div class="table-container">
@@ -318,7 +328,7 @@
 <td style="text-align:left">标量x</td>
 <td>/</td>
 <td>$\frac{\partial \mathbf{y}}{\partial x} $   分子布局：m维列向量（默认布局）；分母布局：m维行向量</td>
-<td>$\frac{\partial \mathbf{Y}}{\partial \mathbf{X}}$    分子布局：p×q矩阵（默认布局）分母布局：q×p矩阵</td>
+<td>$\frac{\partial \mathbf{Y}}{\partial x}$    分子布局：p×q矩阵（默认布局）分母布局：q×p矩阵</td>
 </tr>
 <tr>
 <td style="text-align:left">列向量$\mathbf{x}$</td>
@@ -335,7 +345,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="定义法"><a href="#定义法" class="headerlink" title="定义法"></a>定义法</h2><p>定义法是最容易想的方法，遇到遗忘时直接推即可，但运算较为复杂，常用有</p>
+<h2 id="定义法"><a href="#定义法" class="headerlink" title="定义法"></a>定义法</h2><p>定义法是容易想的方法，但运算较为复杂，且并不符合整体求导的思想。常用有</p>
 <ul>
 <li><p>$\frac{\partial a^Tx}{\partial x}=a$</p>
 </li>
@@ -346,21 +356,20 @@
 <li><p>$\frac{\partial \mathbf{a}^T\mathbf{X}\mathbf{b}}{\partial \mathbf{X}} = ab^T$  ($\frac{\partial \mathbf{a}^T\mathbf{X}\mathbf{b}}{\partial X_{ij}} =  \frac{\partial \sum\limits_{p=1}^m\sum\limits_{q=1}^n a_pA_{pq}b_q}{\partial X_{ij}} =  \frac{\partial a_iA_{ij}b_j}{\partial X_{ij}} = a_ib_j$)</p>
 </li>
 </ul>
-<p>一些求导的基本法则还是类似普通求导</p>
 <h2 id="微分法"><a href="#微分法" class="headerlink" title="微分法"></a>微分法</h2><p>主要利用矩阵的迹：</p>
 <ul>
-<li><p>$df=\sum\limits_{i=1}^n\frac{\partial f}{\partial x_i}dx_i = (\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x}=tr((\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x})$ （标量的迹是其本身，矩阵也可做对应推导）</p>
-</li>
-<li><p>$df =tr(df)$</p>
-</li>
+<li>$df=\sum\limits_{i=1}^n\frac{\partial f}{\partial x_i}dx_i = (\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x}=tr((\frac{\partial f}{\partial \mathbf{x}})^Td\mathbf{x})$  （标量的迹是其本身，将梯度与微分相联系）</li>
+<li>$df=\sum\limits_{i=1}^m\sum\limits_{j=1}^n\frac{\partial f}{\partial X_{ij}}dX_{ij} = tr((\frac{\partial f}{\partial \mathbf{X}})^Td\mathbf{X})$    （$tr(A^TB) = \sum\limits_{i,j}A_{ij}B_{ij}$）</li>
 </ul>
-<p>一般先对原式求微分，再两边套上迹，利用微分和迹的公式</p>
-<blockquote>
-<p><a href="https://www.cnblogs.com/pinard/p/10791506.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/10791506.html</a></p>
-</blockquote>
+<p>一般先对原式求微分，再两边套上迹，再利用微分和迹的公式求解。中间可能会利用到对于无关变量微分为0。定义法求的式子用微分法都很简便能求得。</p>
+<p>若已经求得$\frac{\partial f}{\partial Y}$，欲求$\frac{\partial f}{\partial X}$，则可利用复合，先求出$df=tr((\frac{\partial f}{\partial Y})^TdY)$，再将$dY$用$dX$表示</p>
+<p>应用：反向传播中对矩阵、向量的求导 <a href="https://www.cnblogs.com/hello-ai/p/10885202.html" target="_blank" rel="noopener">https://www.cnblogs.com/hello-ai/p/10885202.html</a></p>
+<p>平方损失函数的求导<a href="https://www.cnblogs.com/hellcat/p/7216399.html" target="_blank" rel="noopener">https://www.cnblogs.com/hellcat/p/7216399.html</a></p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200229115926.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/renke999/image_host/master/20200229115857.png" alt=""></p>
 <h2 id="链式法则"><a href="#链式法则" class="headerlink" title="链式法则"></a>链式法则</h2><p>向量对向量：$\frac{\partial \mathbf{z}}{\partial \mathbf{x}} = \frac{\partial \mathbf{z}}{\partial \mathbf{y}}\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$</p>
 <p><strong>标量对向量</strong>：$(\frac{\partial z}{\partial \mathbf{x}})^T = (\frac{\partial z}{\partial \mathbf{y}})^T\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$</p>
-<p>标量对向量可用于平方损失函数$l=(X\theta - y)^T(X\theta - y)$的求导：令$z = X\theta - y$, $l=z^Tz$，实在不行也可以拆开逐项求导</p>
+<p>应用：平方损失函数$l=(X\theta - y)^T(X\theta - y)$的求导（标量对向量）：令$z = X\theta - y$, $l=z^Tz$，实在不行也可以拆开逐项求导</p>
 <h2 id="矩阵对矩阵求导"><a href="#矩阵对矩阵求导" class="headerlink" title="矩阵对矩阵求导"></a>矩阵对矩阵求导</h2><p>用的不是太多，需要时再看</p>
 
     </div>
@@ -381,8 +390,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-               <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
                <a href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag"><i class="fa fa-tag"></i> 矩阵</a>
+               <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
           </div>
 
         
@@ -479,7 +488,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -488,7 +497,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
 
@@ -496,7 +505,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -560,7 +569,7 @@
 <!---->
 <!--       <span class="post-meta-item-text">站点总字数：</span>-->
 <!---->
-    <span title="站点总字数">88k</span>
+    <span title="站点总字数">95k</span>
 
 <!-- 底栏总阅读时间 -->
     <span class="post-meta-divider">|</span>
@@ -570,7 +579,7 @@
 <!---->
 <!--    <span class="post-meta-item-text">站点阅读时长 &asymp;</span>-->
 <!---->
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">1:46</span>
 </div>
 
 
